@@ -10,11 +10,10 @@ Our product will be a website which facilitates an online community of users to 
 
 ## Initial UI Mockup
 
-![alt text](../Mockups/mockup1.png "UI-Mockup 1")
+![alt text](Mockups/mockup1.png "UI-Mockup 1")
 
 ## Authors
 
-* **Billie Thompson**
 * **Bobby Palmer**
 * **Ryan McIntyre**
 * **Autumn Skoog**
