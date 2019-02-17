@@ -1,66 +1,189 @@
+/**
+* Team Adequate, CSC-450
+* Global App Styling
+*/
+
 body {
       background-color: white;
       margin: 0;
       padding: 0;
-      font-family: Helvetica, Arial, sans-serif;
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
       font-size: 100%;
 }
 
-.topnav {
-      position: relative;
-      background-color: white;
-      overflow: hidden;
-      border-bottom: #000000 1px solid;
+a {
+      text-decoration: none;
+}
+
+/*
+* Top-Navigation Styling:
+*/
+      .topnav {
+            display: grid;
+            position: fixed;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+            height: 50px;
+            grid-template-columns: 200px 1fr 300px;
+            grid-auto-rows: auto;
+            grid-gap: 1em;
+            align-items: center;
+            text-align: center;
+            border-bottom: #000000 1px solid;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.23);
+      }
+
+      .topnav-left {
+            grid-column: 1;
+      }
+
+      .topnav-search {
+            grid-column: 2;
+      }
+
+      .topnav-right {
+            grid-column: 3;
+            display: inline-block;
+      }
+
+      .topnav-left p {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            font-size: 1.4em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+      }
+
+      #logo-l {
+            color: #007aff;
+      }
+
+      #logo-r {
+            color: #ff6200;
+      }
+
+      .topnav-search input[type=text] {
+            width: 80%;
+            padding: 5px 0 5px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            background-color: #ebebeb;
+            color: #444343;
+      }
+
+      .topnav-right button {
+            background-color: #007aff;
+            border: #ffffff 2px solid;
+            border-radius: 5px;
+            color: #ffffff;
+            padding: 5px 20px 5px 20px;
+            text-decoration: none;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            width: 130px;
+      }
+
+      .topnav-right button:hover {
+            background-color: white;
+            border: #007aff 2px solid;
+            color: #007aff;
+      }
+
+/**
+* Content Area Styling:
+*/
+.content {
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+      grid-auto-rows: auto;
+      grid-gap: 1em;
+      margin-top: 50px;
+}
+
+.sidemenu {
+      grid-column: 1;
+}
+
+.argument {
+      grid-column: 2;
+}
+
+.right-area {
+      grid-column: 3;
+}
+
+/**
+* Argument Area Syling:
+*/
+
+.argument-header {
+
+}
+
+.card {
+      border: #000000 1px solid;
+      padding: 20px;
+      margin-bottom: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.23);
 }
 
-.topnav a {
+.card-footer  {
+      margin-top: 10px;
+      text-align: right;
+}
+
+.agree-card {
+      border-left: #007aff 4px solid;
       float: left;
-      color: #007aff;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      font-size: 1.0em;
+      margin-left: 4px;
 }
 
-.topnav-centered {
-      float: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-}
-
-.topnav input[type=text] {
+.disagree-card {
+      border-right: #ff6200 4px solid;
       float: right;
-      padding: 6px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-      background-color: #ebebeb;
-      color: #444343;
-      width: 600px;
+      margin-right: 4px;
 }
 
-.topnav-right {
-      float: right;
-      margin-right: 50px;
-      padding: 5px 5px;
+.t1 {
+      width: 90%;
 }
 
-.topnav-right button {
-    background-color: #007aff;
-    border: #ffffff 2px solid;
-    border-radius: 5px;
-    color: #ffffff;
-    padding: 5px 20px 5px 20px;
-    text-decoration: none;
-    font-size: 1.1em;
-    letter-spacing: 1px;
-}
 
-.topnav-right button:hover {
-    background-color: white;
-    border: #007aff 2px solid;
-    color: #007aff;
-}
+
+
+
+
+      /* Card Text: */
+      .card p {
+            margin: 0;
+            padding: 0;
+      }
+
+      .card-footer p {
+            color: #444343;
+      }
+
+      .card-body {
+            font-size: 1.2em;
+            color: black;
+      }
+
+      .card-datetime {
+            font-size: 0.8em;
+      }
+
+      .card-author {
+            font-size: 0.9em;
+      }
+
+
+
+
+
+
+
+
+/* END CSS*/

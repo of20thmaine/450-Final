@@ -50,13 +50,11 @@ CREATE TABLE agtodi_threads (
 CREATE TABLE agtodi_topics (
       id INT NOT NULL AUTO_INCREMENT,
       threadId INT NOT NULL,
-      creatorId VARCHAR(50),
       firstPostId BIGINT NOT NULL,
       creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
       title VARCHAR(255) NOT NULL,
       PRIMARY KEY (id),
       FOREIGN KEY (threadId) REFERENCES agtodi_threads(id) ON DELETE RESTRICT,
-      FOREIGN KEY (creatorId) REFERENCES agtodi_users(email) ON DELETE SET NULL,
       FOREIGN KEY (firstPostId) REFERENCES agtodi_posts(id) ON DELETE RESTRICT
 ) ENGINE=INNODB;
 
