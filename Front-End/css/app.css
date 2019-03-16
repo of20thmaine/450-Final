@@ -15,6 +15,18 @@ a {
       text-decoration: none;
 }
 
+ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+}
+
+ul li {
+      margin: 0;
+      padding: 0;
+      display: inline;
+}
+
 /*
 * Top-Navigation Styling:
 */
@@ -23,9 +35,10 @@ a {
             position: fixed;
             top: 0;
             z-index: 1;
+            background-color: white;
             width: 100%;
             height: 50px;
-            grid-template-columns: 200px 1fr 300px;
+            grid-template-columns: auto 150px minmax(min-content, 800px) 350px auto;
             grid-auto-rows: auto;
             grid-gap: 1em;
             align-items: center;
@@ -35,15 +48,15 @@ a {
       }
 
       .topnav-left {
-            grid-column: 1;
-      }
-
-      .topnav-search {
             grid-column: 2;
       }
 
-      .topnav-right {
+      .topnav-search {
             grid-column: 3;
+      }
+
+      .topnav-right {
+            grid-column: 4;
             display: inline-block;
       }
 
@@ -65,8 +78,8 @@ a {
       }
 
       .topnav-search input[type=text] {
-            width: 80%;
-            padding: 5px 0 5px 15px;
+            width: 100%;
+            padding: 4px 0 4px 15px;
             border: none;
             border-radius: 5px;
             font-size: 1.2em;
@@ -97,7 +110,7 @@ a {
 */
 .content {
       display: grid;
-      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-columns:auto minmax(min-content, 1200px) auto;
       grid-auto-rows: auto;
       grid-gap: 1em;
       margin-top: 50px;
@@ -123,38 +136,127 @@ a {
 
 }
 
+.card-area {
+
+}
+
 .card {
       border: #000000 1px solid;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 18px;
+      margin-bottom: 24px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.23);
 }
 
-.card-footer  {
-      margin-top: 10px;
-      text-align: right;
+.header-card {
+      border-left: #007aff 8px solid;
 }
 
 .agree-card {
       border-left: #007aff 4px solid;
-      float: left;
-      margin-left: 4px;
 }
 
 .disagree-card {
-      border-right: #ff6200 4px solid;
-      float: right;
-      margin-right: 4px;
+      border-left: #ff6200 4px solid;
 }
 
-.t1 {
-      width: 90%;
+.insight-card {
+      border-left: #00AB84 4px solid;
 }
 
+.tier {
+      border-left: #444343 1px solid;
+      padding-left: 24px;
+}
 
+      /* Card Footer */
+      .card-footer  {
+            display: grid;
+            width: 100%;
+            margin-top: 10px;
+            grid-template-columns: auto auto min-content min-content;
+            grid-gap: 0;
+            align-items: center;
+      }
 
+      .footer-left {
+            grid-column: 1;
+            padding-top: 10px;
+      }
 
+      .tr-but {
+            grid-column: 3;
+      }
 
+      .footer-right {
+            grid-column: 4;
+      }
+
+      .foot-button {
+            background-color: white;
+            border-radius: 5px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.0em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 2px;
+            margin: 0 4px 0 4px;
+      }
+
+      .ag-but {
+            border: #007aff 2px solid;
+            color: #007aff;
+      }
+
+      .di-but {
+            border: #ff6200 2px solid;
+            color: #ff6200;
+      }
+
+      .in-but {
+            border: #00AB84 2px solid;
+            color: #00AB84;
+      }
+
+      .reply {
+            margin-left: 10px;
+            padding: 2px 5px 2px 5px;
+            border: black 1px solid;
+            color: black;
+            font-weight: 500;
+      }
+
+      .tr-but {
+            margin-right: 20px;
+            padding: 2px 10px 2px 10px;
+            border: black 1px solid;
+            color: black;
+            font-size: 0.9em;
+            font-weight: 400;
+      }
+
+      .ag-but:hover {
+            background-color: #007aff;
+            color: white;
+      }
+
+      .di-but:hover {
+            background-color: #ff6200;
+            color: white;
+      }
+
+      .in-but:hover {
+            background-color:#00AB84;
+            color: white;
+      }
+
+      .count {
+            display: inline-block;
+            font-size: 1.0em;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+      }
 
       /* Card Text: */
       .card p {
@@ -163,6 +265,7 @@ a {
       }
 
       .card-footer p {
+            white-space: nowrap;
             color: #444343;
       }
 
@@ -177,6 +280,19 @@ a {
 
       .card-author {
             font-size: 0.9em;
+            color: #444343;
+      }
+
+      .ags {
+            color: #007aff;
+      }
+
+      .dis {
+            color: #ff6200;
+      }
+
+      .ins {
+            color: #00AB84;
       }
 
 
