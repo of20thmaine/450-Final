@@ -1,5 +1,6 @@
 <?php
-      include("includes/header.php");
-      echo '<p>Hello world!</p>';
-      include("includes/footer.php");
-?>
+	$pageTitle = 'Agoti - Home';
+	include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
+
+
+	include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');

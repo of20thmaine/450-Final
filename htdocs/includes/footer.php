@@ -1,3 +1,3 @@
-<?php
-      echo '<p>Footer!</p>';
-?>
+</div>
+</body>
+</html>

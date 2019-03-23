@@ -18,24 +18,25 @@ SET FOREIGN_KEY_CHECKS=0;
       DROP TABLE IF EXISTS agtodi_posts;
 
 
-
 /* Using agtodi prefix in case tables are loaded into a database
    with similar table names. */
 CREATE TABLE agtodi_users (
-      email VARCHAR(50),
+	  id INT NOT NULL AUTO_INCREMENT,
+      email VARCHAR(50) NOT NULL,
       password VARCHAR(255) NOT NULL,
       firstName VARCHAR(20) NOT NULL,
       lastName VARCHAR(20) NOT NULL,
       tier INT NOT NULL,
-      PRIMARY KEY(email)
+      PRIMARY KEY(id)
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_admins (
-      email VARCHAR(50),
+	  id INT NOT NULL AUTO_INCREMENT,
+      email VARCHAR(50) NOT NULL,
       password VARCHAR(255) NOT NULL,
       firstName VARCHAR(20) NOT NULL,
       lastName VARCHAR(20) NOT NULL,
-      PRIMARY KEY(email)
+      PRIMARY KEY(id)
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_threads (
