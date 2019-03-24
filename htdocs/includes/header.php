@@ -17,7 +17,7 @@
 			<input type="text" name="search" placeholder="Search agtodi...">
 		</div>
 		<div class="topnav-right">
-			<button>Login</button>
+			<button onclick="login.php">Login</button>
 			<button>Register</button>
 		</div>
 	</div>
