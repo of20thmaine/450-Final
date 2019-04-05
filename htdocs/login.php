@@ -16,7 +16,7 @@
 				if (password_verify($_POST['password'], $password)) {
 					session_regenerate_id();
 
-					$_SESSION['loggedin'] = TRUE;
+					$_SESSION['loggedIn'] = TRUE;
 					$_SESSION['email'] = $_POST['email'];
 					$_SESSION['id'] = $id;
 					$_SESSION['firstName'] = $firstName;
@@ -43,11 +43,11 @@
 		<h1>Login</h1>
 		<form action="login.php" method="post">
 			<label for="username">
-				<i class="fas fa-user"></i>
+				<i class="fa fa-user"></i>
 			</label>
 			<input type="text" name="email" placeholder="Email" id="email" required>
 			<label for="password">
-				<i class="fas fa-lock"></i>
+				<i class="fa fa-lock"></i>
 			</label>
 			<input type="password" name="password" placeholder="Password" id="password" required>
 			<input type="submit" value="Login">

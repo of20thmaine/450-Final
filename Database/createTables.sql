@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 /* Using agtodi prefix in case tables are loaded into a database
    with similar table names. */
 CREATE TABLE agtodi_users (
-	  id INT NOT NULL AUTO_INCREMENT,
+	    id INT NOT NULL AUTO_INCREMENT,
       email VARCHAR(50) NOT NULL,
       password VARCHAR(255) NOT NULL,
       firstName VARCHAR(20) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE agtodi_users (
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_admins (
-	  id INT NOT NULL AUTO_INCREMENT,
+	    id INT NOT NULL AUTO_INCREMENT,
       email VARCHAR(50) NOT NULL,
       password VARCHAR(255) NOT NULL,
       firstName VARCHAR(20) NOT NULL,
@@ -43,9 +43,9 @@ CREATE TABLE agtodi_threads (
       id INT NOT NULL AUTO_INCREMENT,
       creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
       title VARCHAR(255) NOT NULL,
-      creatorId VARCHAR(50),
+      creatorId INT NOT NULL,
       PRIMARY KEY (id),
-      FOREIGN KEY (creatorId) REFERENCES agtodi_admins(email) ON DELETE SET NULL
+      FOREIGN KEY (creatorId) REFERENCES agtodi_admins(id) ON DELETE RESTRICT
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_topics (
@@ -62,7 +62,7 @@ CREATE TABLE agtodi_topics (
 CREATE TABLE agtodi_posts (
       id BIGINT NOT NULL AUTO_INCREMENT,
       topicId INT NOT NULL,
-      creatorId VARCHAR(50),
+      creatorId INT NOT NULL,
       post TEXT NOT NULL,
       creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
       likes INT,
@@ -71,9 +71,11 @@ CREATE TABLE agtodi_posts (
       isReply BIGINT,
       PRIMARY KEY (id),
       FOREIGN KEY (topicId) REFERENCES agtodi_topics(id) ON DELETE RESTRICT,
-      FOREIGN KEY (creatorId) REFERENCES agtodi_users(email) ON DELETE SET NULL,
+      FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE RESTRICT,
       FOREIGN KEY (isReply) REFERENCES agtodi_posts(id) ON DELETE RESTRICT
 ) ENGINE=INNODB;
 
 /* Sets foreign key checks back ON. */
 SET FOREIGN_KEY_CHECKS=1;
+
+
