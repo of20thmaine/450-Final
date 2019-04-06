@@ -393,6 +393,12 @@ ul li {
 	transition: background-color 0.2s;
 }
 
+p .form-error {
+	color: #e54b4b;
+	align-items: center;
+	text-align: center;
+}
+
 
 
 

@@ -13,13 +13,13 @@
 			<a href="index.php"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
 		</div>
 		<div class="topnav-search">
-            <form action="search.php" method="post">
-                <label for="search">
+            <div class="search">
+                <input type="text" class="searchTerm" placeholder="Search agtodi...">
+                <button type="submit" class="searchButton">
                     <i class="fa fa-search"></i>
-                </label>
-                <input type="text" name="search" placeholder="Search agtodi...">
-            </form>
-		</div>
+                </button>
+            </div>
+        </div>
 		<div class="topnav-right">
 			<button onclick="window.location.href='login.php'">Login</button>
 			<button onclick="window.location.href='register.php'">Register</button>

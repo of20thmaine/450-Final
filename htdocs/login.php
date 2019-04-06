@@ -1,6 +1,8 @@
 <?php
 	session_start();
 
+    $loginErrors = array();
+
 	if (isset($_POST['email'], $_POST['password'])) {
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
@@ -23,12 +25,15 @@
 					$_SESSION['lastName'] = $lastName;
 					$_SESSION['tier'] = $tier;
 
-					// Fully logged in, redirect to profile.
+                    mysqli_close($con);
+                    header('Location: profile.php');
+                    exit;
+
 				} else {
-					// Bad password.
+                    $loginErrors[] = 'Invalid password.';
 				}
 			} else {
-				// Bad username.
+                $loginErrors[] = 'Invalid username.';
 			}
 			$stmt->close();
 		}
@@ -40,7 +45,14 @@
 
 <div class="argument">
 	<div class="login">
-		<h1>Login</h1>
+		<h1>Welcome to Agtodi!</h1>
+        <?php
+            if ($loginErrors) {
+                foreach ($loginErrors as $element) {
+                    echo '<p class="form-error">'."$element".'</p>';
+                }
+            }
+        ?>
 		<form action="login.php" method="post">
 			<label for="username">
 				<i class="fa fa-user"></i>
