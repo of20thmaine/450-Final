@@ -112,7 +112,7 @@ ul li {
 }
 
 
-.topnav-right button {
+.lg-button {
 	background-color: #007aff;
 	border: #ffffff 2px solid;
 	border-radius: 5px;
@@ -124,10 +124,31 @@ ul li {
 	width: 130px;
 }
 
-.topnav-right button:hover {
+.lg-button:hover {
 	background-color: white;
 	border: #007aff 2px solid;
 	color: #007aff;
+}
+
+.topnav-right p {
+	display: inline-block;
+	align-items: center;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	font-size: 0.9em;
+	color: #5b6574;
+}
+
+.profile-button {
+	border: 1px solid white;
+	background: white;
+	color: #5b6574;
+	text-align: center;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1.3em;
+	margin: 0 5px 0 10px;
 }
 
 /**

@@ -6,13 +6,13 @@
 	if (isset($_POST['email'], $_POST['password'])) {
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
-		if ($stmt = $con->prepare('SELECT id, password, firstName, lastName, tier FROM agtodi_users WHERE email = ?')) {
+		if ($stmt = $con->prepare('SELECT id, password, firstName, lastName, tier, isAdmin FROM agtodi_users WHERE email = ?')) {
 			$stmt->bind_param('s', $_POST['email']);
 			$stmt->execute();
 			$stmt->store_result();
 
 			if ($stmt->num_rows > 0) {
-				$stmt->bind_result($id, $password, $firstName, $lastName, $tier);
+				$stmt->bind_result($id, $password, $firstName, $lastName, $tier, $isAdmin);
 				$stmt->fetch();
 
 				if (password_verify($_POST['password'], $password)) {
@@ -24,6 +24,7 @@
 					$_SESSION['firstName'] = $firstName;
 					$_SESSION['lastName'] = $lastName;
 					$_SESSION['tier'] = $tier;
+					$_SESSION['isAdmin'] = $isAdmin;
 
                     mysqli_close($con);
                     header('Location: profile.php');

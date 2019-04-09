@@ -71,7 +71,7 @@ CREATE TABLE agtodi_posts (
 
 CREATE TABLE agtodi_interactions (
   postId BIGINT NOT NULL,
-  creatorId BIGINIT NOT NULL,
+  creatorId BIGINT NOT NULL,
   isLike TINYINT DEFAULT 0,
   isDislike TINYINT DEFAULT 0,
   isTroll TINYINT DEFAULT 0,
