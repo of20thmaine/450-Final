@@ -18,7 +18,7 @@
             $stmt->execute();
 
             mysqli_close($con);
-            header('Location: thread.php?thread=all');
+            header('Location: thread.php');
             exit;
 
         } else {

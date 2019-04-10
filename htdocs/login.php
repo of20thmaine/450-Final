@@ -37,6 +37,7 @@
                 $loginErrors[] = 'Invalid username.';
 			}
 			$stmt->close();
+            mysqli_close($con);
 		}
 	}
 
