@@ -2,37 +2,18 @@
     session_start();
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
-    $isThread = false;
 
     if (isset($_GET['thread'])) {
         $threadId = filter_var(trim($_POST['thread']), FILTER_SANITIZE_STRING);
 
-        if ($stmt = $con->prepare('SELECT title FROM agtodi_threads WHERE threadId = ?')) {
+        if ($stmt = $con->prepare('SELECT title FROM agtodi_threads WHERE threadId = ? ')) {
             $stmt->bind_param('s', $threadId);
             $stmt->execute();
             $stmt->store_result();
-
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($title);
-                $stmt->fetch();
-                $isThread = true;
-            }
-
-            $stmt->free_result();
-
-            if ($isThread && $stmt = $con->prepare('SELECT id, firstPostId, creationDate, title FROM agtodi_topics WHERE threadId = ? ORDER BY title')) {
-                $stmt->bind_param('s', $threadId);
-                $stmt->execute();
-                $stmt->store_result();
-            }
         }
     }
 
-    if (!$isThread) {
-        $title = 'Threads';
-    }
-
-    $pageTitle = 'Agoti - '.$title;
+    $pageTitle = 'Agoti - Threads';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 

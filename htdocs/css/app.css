@@ -93,7 +93,7 @@ ul li {
     outline: none;
     background: #efefef;
     color:#5b6574;
-    font-size: 1.05em;
+    font-size: 1.0em;
     text-indent: 10px;
 }
 
@@ -159,7 +159,6 @@ ul li {
 	grid-template-columns:1fr 10px minmax(min-content, 800px) min-content 1fr;
 	grid-auto-rows: auto;
 	grid-gap: 1em;
-	margin-top: 50px;
 }
 
 .sidemenu {
@@ -169,6 +168,7 @@ ul li {
 
 .argument {
 	grid-column: 3;
+	margin-top:1em;
 }
 
 .right-area {
@@ -179,6 +179,27 @@ ul li {
 * Argument Area Syling:
 */
 
+.threads-header {
+	align-items: center;
+	text-align: center;
+	margin: 0;
+	padding: 1em;
+	height: 40px;
+}
+
+.threads-header  h2 {
+	color: #5b6574;
+	font-size: 1.5em;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.threads-header .lg-button {
+	float: right;
+	margin: 0;
+}
+
 .argument-header h2 {
 	text-align: center;
 	color: #5b6574;
@@ -186,7 +207,7 @@ ul li {
 }
 
 .card-area {
-
+	margin:0;
 }
 
 .card {

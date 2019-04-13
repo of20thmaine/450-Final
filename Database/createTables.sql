@@ -45,7 +45,7 @@ CREATE TABLE agtodi_threads (
 CREATE TABLE agtodi_topics (
       id INT NOT NULL AUTO_INCREMENT,
       threadId INT NOT NULL,
-      firstPostId BIGINT NOT NULL,
+      firstPostId BIGINT,
       creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
       title VARCHAR(255) NOT NULL,
       PRIMARY KEY (id),
@@ -82,5 +82,33 @@ CREATE TABLE agtodi_interactions (
 
 /* Sets foreign key checks back ON. */
 SET FOREIGN_KEY_CHECKS=1;
+
+SELECT
+  a.id,
+  a.creatorId,
+  a.post,
+  a.creationDate,
+  a.likes,
+  a.dislikes,
+  a.trolls,
+  a.isReply,
+  b.firstName,
+  b.lastName,
+  c.isLike,
+  c.isDislike,
+  c.isTroll
+FROM
+  agtodi_posts a WHERE topicId = ?
+    JOIN agtodi_users b ON a.creatorId = b.id
+    JOIN agtodi_interactions c ON c.creatorId = ?
+
+
+
+
+
+
+
+
+
 
 
