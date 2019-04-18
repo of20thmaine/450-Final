@@ -45,7 +45,7 @@ CREATE TABLE agtodi_threads (
 CREATE TABLE agtodi_topics (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       threadId INT UNSIGNED NOT NULL,
-      firstPostId INT UNSIGNED NOT NULL,
+      firstPostId INT UNSIGNED,
       PRIMARY KEY (ID),
       FOREIGN KEY (threadId) REFERENCES agtodi_threads(id) ON DELETE RESTRICT
 ) ENGINE=INNODB;
@@ -53,13 +53,13 @@ CREATE TABLE agtodi_topics (
 CREATE TABLE agtodi_posts (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       creatorId INT UNSIGNED NOT NULL,
-      topicId INT UNSIGNED,
+      topicId INT UNSIGNED NOT NULL,
       isReply  INT UNSIGNED,
       post TEXT NOT NULL,
       creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-      likes SMALLINT UNSIGNED,
-      dislikes SMALLINT UNSIGNED,
-      trolls SMALLINT UNSIGNED,
+      likes SMALLINT UNSIGNED DEFAULT 0,
+      dislikes SMALLINT UNSIGNED DEFAULT 0,
+      trolls SMALLINT UNSIGNED DEFAULT 0,
       PRIMARY KEY (id),
       FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE RESTRICT,
       FOREIGN KEY (topicId) REFERENCES agtodi_topics(id) ON DELETE RESTRICT,

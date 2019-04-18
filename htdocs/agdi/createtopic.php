@@ -20,24 +20,26 @@
     $threadTitle = filter_var(trim($_GET['title']), FILTER_SANITIZE_STRING);
 
     if (isset($_POST['threadId'], $_POST['argument'])) {
-        $argument = filter_var(trim(htmlspecialchars($_GET['thread'])), FILTER_SANITIZE_STRING);
+        $argument = filter_var(htmlspecialchars($_POST['argument']), FILTER_SANITIZE_STRING);
         require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
         $con->begin_transaction();
-        $stmt = $con->prepare('INSERT INTO agtodi_topics (threadId) VALUES (?)');
-        $stmt->bind_param('s',$threadId);
+        $stmt1 = $con->prepare('INSERT INTO agtodi_topics (threadId) VALUES (?)');
+        $stmt1->bind_param('s',$threadId);
 
-        if ($stmt->execute()) {
+        if ($stmt1->execute()) {
                 $topicID = mysqli_insert_id($con);
-                $stmt = $con->prepare('INSERT INTO agtodi_posts (creatorId, topicId, post) VALUES (?, ?, ?)');
-                $stmt->bind_param('sss',$_SESSION['id'], $topicID, $argument);
-            if ($stmt->execute()) {
+                $stmt2 = $con->prepare('INSERT INTO agtodi_posts (creatorId, topicId, post) VALUES (?, ?, ?)');
+                $stmt2->bind_param('sss',$_SESSION['id'], $topicID, $argument);
+            if ($stmt2->execute()) {
                 $postID = mysqli_insert_id($con);
-                $stmt = $con->prepare('UPDATE agtodi_topics SET firstPostId = ? WHERE id = ?');
-                $stmt->bind_param('ss', $postID, $topicID);
-                if ($stmt->execute()) {
+                $stmt3 = $con->prepare('UPDATE agtodi_topics SET firstPostId = ? WHERE id = ?');
+                $stmt3->bind_param('ss', $postID, $topicID);
+                if ($stmt3->execute()) {
+                    $topicErrors[] = $topicID.'  '.$postID.'  '.$argument;
+                    $con->commit();
                     mysqli_close($con);
-                    header('Location: threads.php');
+                    header('Location: thread.php?thread='.$threadId.'&title='.$threadTitle);
                     exit;
                 }
             }
