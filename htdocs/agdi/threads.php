@@ -4,12 +4,11 @@
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
     if ($stmt = $con->prepare('SELECT id, creationDate, title FROM agtodi_threads ORDER BY title')) {
-        $stmt->bind_param('s', $threadId);
         $stmt->execute();
         $stmt->store_result();
     }
 
-    $pageTitle = 'Agoti - Threads';
+    $pageTitle = 'Agtodi - Threads';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
@@ -28,11 +27,11 @@
             $toggler = true;
             while ($stmt->fetch()) {
                 if ($toggler) {
-                    echo '<a href="thread.php?threadId='.$id.'"><div class="card" style="width: 44%; float:left"><p class="card-body">'.$title.'</p>
+                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card" style="width: 44%; float:left"><p class="card-body">'.$title.'</p>
                       <div class="card-footer"><div class="footer-right"><p class="card-datetime">'.$creationDate.'</p>
                       </div></div></div></a>';
                 } else {
-                    echo '<a href="thread.php?threadId='.$id.'"><div class="card" style="width: 44%; float:right"><p class="card-body">'.$title.'</p>
+                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card" style="width: 44%; float:right"><p class="card-body">'.$title.'</p>
                       <div class="card-footer"><div class="footer-right"><p class="card-datetime">'.$creationDate.'</p>
                       </div></div></div></a>';
                 }

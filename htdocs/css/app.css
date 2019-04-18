@@ -168,7 +168,7 @@ ul li {
 
 .argument {
 	grid-column: 3;
-	margin-top:1em;
+	margin-top: 50px;
 }
 
 .right-area {
@@ -500,6 +500,16 @@ ul li {
 .register form input[type="submit"]:hover {
 	background-color: #007aff;
 	transition: background-color 0.2s;
+}
+
+.register form .text {
+	border: 1px solid #dee0e4;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	padding:4px;
+	width:90%;
+	height:100%;
+	font-size: 1.4em;
+	color: #5b6574;
 }
 
 .form-error {

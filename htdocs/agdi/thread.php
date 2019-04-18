@@ -3,46 +3,40 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
-    if (isset($_GET['thread'])) {
-        $threadId = filter_var(trim($_POST['thread']), FILTER_SANITIZE_STRING);
+    if (isset($_GET['thread'], $_GET['title'])) {
+        $threadId = filter_var(trim($_GET['thread']), FILTER_SANITIZE_STRING);
+        $threadTitle = filter_var(trim($_GET['title']), FILTER_SANITIZE_STRING);
 
-        if ($stmt = $con->prepare('SELECT title FROM agtodi_threads WHERE threadId = ? ')) {
+        if ($stmt = $con->prepare('SELECT a.firstPostId b.post, b.creatorId, b.creationDate b.likes, b.dislikes, 
+                            c.firstName, c.lastName FROM agtodi_topics a WHERE a.threadId = ? JOIN agtodi_posts b ON 
+                            b.id = a.firstPostId JOIN agtodi_users c ON c.id = b.creatorId')) {
             $stmt->bind_param('s', $threadId);
             $stmt->execute();
             $stmt->store_result();
+
         }
+    } else {
+        header('Location: threads.php');
+        exit;
     }
 
-    $pageTitle = 'Agoti - Threads';
+    $pageTitle = $threadTitle.': Arguments';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
 <div class="argument">
-    <div class="argument-header">
-        <h2>ag:di//<?php echo $title; ?></h2>
+    <div class="threads-header">
+        <?php
+        echo "<h2>$pageTitle</h2>";
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
+            echo '<button class="lg-button" onclick="window.location.href=\'createtopic.php?thread='.$threadId.
+                '&title='.$threadTitle.'\'">Create</button>';
+        }
+        ?>
     </div>
     <div class="card-area">
     <?php
-         if ($isThread) {
-             $stmt->bind_result($id, $firstPostId, $creationDate, $title);
 
-             while ($stmt->fetch()) {
-
-             }
-         } else {
-             if ($stmt = $con->prepare('SELECT title, id FROM agtodi_threads')) {
-                 $stmt->execute();
-                 $stmt->store_result();
-                 $stmt->bind_result($title, $id);
-             }
-
-             echo '<ul>';
-             while ($stmt->fetch()) {
-                 echo '<li><a href="thread.php?thread='.$id.'">'.$title.'</a></li>';
-             }
-
-             echo '</ul>';
-         }
     ?>
     </div>
 </div>

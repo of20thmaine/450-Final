@@ -10,7 +10,7 @@
 <body>
 	<div class="topnav">
 		<div class="topnav-left">
-			<a href="index.php"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
+			<a href="/"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
 		</div>
 		<div class="topnav-search">
             <div class="search">
