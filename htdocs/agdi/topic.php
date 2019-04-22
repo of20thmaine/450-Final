@@ -141,7 +141,7 @@
                 echo    '</form>
                      </div>';
         if ($tier >= $posts[$i][9]) {
-            echo '<form action="topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'" method="post">
+            echo '<form class="tr-form" action="topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'" method="post">
                                 <button class="foot-button tr-but" name="troll" type="submit" value="'.$posts[$i][0].'">Troll</button>
                    </form>';
         }
@@ -173,26 +173,14 @@
                     continue;
                 }
                 if (array_key_exists($posts[$i][0], $nested)) {
-                    // Bug is here somewhere:
-//                    printCard($i, $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
-//                    $tierCount++;
-//                    echo '<div class="tier">';
-//                    for ($j = 0; $j < count($nested[$posts[$i][0]]); ++$j) {
-//                        if (array_key_exists($nested[$posts[$i][0]][$j], $nested)) {
-//                            printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
-//                            $tierCount++;
-//                            echo '<div class="tier">';
-//                            for ($k = 0; $k < count($nested[$posts[$j][0]]); ++$k) {
-//                                printCard($nested[$posts[$j][0]][$k], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
-//                            }
-//                            echo '</div>';
-//                            $tierCount--;
-//                        } else {
-//                            printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
-//                        }
-//                    }
-//                    echo '</div>';
-//                    $tierCount--;
+                    printCard($i, $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
+                    $tierCount++;
+                    echo '<div class="tier">';
+                    for ($j = 0; $j < count($nested[$posts[$i][0]]); ++$j) {
+                        printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
+                    }
+                    echo '</div>';
+                    $tierCount--;
                 } else if ($posts[$i][6] != null) {
                     continue;
                 } else {

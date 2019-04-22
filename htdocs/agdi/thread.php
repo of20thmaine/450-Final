@@ -7,9 +7,11 @@
         $threadId = filter_var(trim($_GET['thread']), FILTER_SANITIZE_STRING);
         $threadTitle = filter_var(trim($_GET['title']), FILTER_SANITIZE_STRING);
 
-        if ($stmt = $con->prepare('SELECT a.firstPostId, b.post, b.creatorId, b.creationDate, b.likes, b.dislikes,
+        if ($stmt = $con->prepare('SELECT a.firstPostId, b.post, b.creatorId, b.creationDate, 
+                (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE a.id = postId) AS agrees,
+                (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE a.id = postId) AS disagrees,
                 c.firstName, c.lastName FROM agtodi_topics a JOIN agtodi_posts b ON b.id = a.firstPostId JOIN
-                 agtodi_users c ON c.id = b.creatorId WHERE a.threadId = ?')) {
+                agtodi_users c ON c.id = b.creatorId WHERE a.threadId = ?')) {
             $stmt->bind_param('s', $threadId);
             $stmt->execute();
             $stmt->store_result();

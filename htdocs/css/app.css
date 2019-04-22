@@ -258,8 +258,10 @@ ul li {
 	padding: 0;
 }
 
-.tr-but {
+.tr-form {
 	grid-column: 3;
+	margin: 0;
+	padding: 0;
 }
 
 .footer-right {
@@ -314,6 +316,11 @@ ul li {
 
 .re-but:hover {
 	background-color:#00AB84;
+	color: white;
+}
+
+.tr-but:hover {
+	background-color: black;
 	color: white;
 }
 

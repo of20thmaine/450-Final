@@ -57,13 +57,10 @@ CREATE TABLE agtodi_posts (
       isReply  INT UNSIGNED,
       post TEXT NOT NULL,
       creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-      likes SMALLINT UNSIGNED DEFAULT 0,
-      dislikes SMALLINT UNSIGNED DEFAULT 0,
-      trolls SMALLINT UNSIGNED DEFAULT 0,
       PRIMARY KEY (id),
       FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE RESTRICT,
-      FOREIGN KEY (topicId) REFERENCES agtodi_topics(id) ON DELETE RESTRICT,
-      FOREIGN KEY (isReply) REFERENCES agtodi_posts(id) ON DELETE RESTRICT
+      FOREIGN KEY (topicId) REFERENCES agtodi_topics(id) ON DELETE CASCADE,
+      FOREIGN KEY (isReply) REFERENCES agtodi_posts(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_interactions (
@@ -73,13 +70,9 @@ CREATE TABLE agtodi_interactions (
   isDislike TINYINT DEFAULT 0,
   isTroll TINYINT DEFAULT 0,
   PRIMARY KEY (postId, creatorId),
-  FOREIGN KEY (postId) REFERENCES agtodi_posts(id) ON DELETE RESTRICT,
-  FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE RESTRICT
+  FOREIGN KEY (postId) REFERENCES agtodi_posts(id) ON DELETE CASCADE,
+  FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 /* Sets foreign key checks back ON. */
 SET FOREIGN_KEY_CHECKS=1;
-
--- SELECT a.id, a.creatorId, a.isReply, a.post, a.creationDate, a.likes, a.dislikes, a.trolls, b.id, b.firstName, b.lastName, b.tier, c.isLike, c.isDislike, c.isTroll
--- FROM agtodi_posts a JOIN agtodi_users b JOIN agtodi_interactions c
--- ON a.topicId = 1 AND b.id = a.creatorId AND c.creatorId = 1;
