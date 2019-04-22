@@ -253,6 +253,11 @@ ul li {
 	padding-top: 10px;
 }
 
+.footer-left form {
+	margin: 0;
+	padding: 0;
+}
+
 .tr-but {
 	grid-column: 3;
 }
@@ -519,7 +524,53 @@ ul li {
 }
 
 
+.reply-area {
+	margin-top: 1em;
+	border-top: 1px solid black;
+	width: 100%;
+	padding:0;
+}
 
+.reply-area textarea {
+	margin-top: 10px;
+	resize: none;
+	outline: none;
+	width: 100%;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	background: #f9f9f9;
+	padding: 4px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;
+}
+
+.reply-area textarea:focus {
+	background: #fff;
+}
+
+.reply-area form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1em 0 0 0;
+	margin:0;
+}
+
+.reply-area input[type="submit"] {
+	text-align: center;
+	border: #00AB84 2px solid;
+	border-radius: 5px;
+	background-color: #00AB84;
+	color: white;
+	font-size: 1.1em;
+	padding: 2px 30px 2px 30px;
+	font-weight: bold;
+}
+
+.reply-area input[type="submit"]:focus:hover {
+	background-color: white;
+	color: #00AB84;
+}
 
 
 /* END CSS*/

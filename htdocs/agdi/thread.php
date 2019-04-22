@@ -46,7 +46,8 @@
             } else {
                 $class = 'neutral-card';
             }
-            echo "<div class=\"card $class\">
+            echo "<a href=\"topic.php?topic=$threadId&fp=$fpId&title=$threadTitle\">
+                  <div class=\"card $class\">
                     <p class=\"card-body\">$argument</p>
                     <div class=\"card-footer\">
 					    <div class=\"footer-left\">
@@ -58,7 +59,7 @@
                             <a href=\"\" class=\"card-author\">$firstName $lastName</a>
 						</div>
 					</div>
-                  </div>";
+                  </div></a>";
         }
     ?>
     </div>

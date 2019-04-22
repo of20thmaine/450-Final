@@ -27,7 +27,7 @@
 					$_SESSION['isAdmin'] = $isAdmin;
 
                     mysqli_close($con);
-                    header('Location: profile.php');
+                    header('Location: profile.php?id='.$id);
                     exit;
 
 				} else {

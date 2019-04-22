@@ -79,3 +79,7 @@ CREATE TABLE agtodi_interactions (
 
 /* Sets foreign key checks back ON. */
 SET FOREIGN_KEY_CHECKS=1;
+
+-- SELECT a.id, a.creatorId, a.isReply, a.post, a.creationDate, a.likes, a.dislikes, a.trolls, b.id, b.firstName, b.lastName, b.tier, c.isLike, c.isDislike, c.isTroll
+-- FROM agtodi_posts a JOIN agtodi_users b JOIN agtodi_interactions c
+-- ON a.topicId = 1 AND b.id = a.creatorId AND c.creatorId = 1;
