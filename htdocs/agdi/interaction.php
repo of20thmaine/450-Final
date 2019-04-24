@@ -109,15 +109,18 @@
         exit;
     }
 
-    if (isset($_POST['postId'], $_POST['reply'], $_POST['location'], $_POST['fp'])) {
+    if (isset($_POST['postId'], $_POST['reply'], $_POST['location'], $_POST['fp'], $_POST['topic'])) {
         $postId = filter_var(trim($_POST['postId']), FILTER_SANITIZE_STRING);
         $reply = filter_var(htmlspecialchars($_POST['reply']), FILTER_SANITIZE_STRING);
         $redirect = filter_var(trim($_POST['location']), FILTER_SANITIZE_STRING);
         $fp = filter_var(trim($_POST['fp']), FILTER_SANITIZE_STRING);
+        $topic = filter_var(trim($_POST['topic']), FILTER_SANITIZE_STRING);
 
         if ($postId == $fp) {
             $postId = null;
         }
+
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
         if ($stmt = $con->prepare('INSERT INTO agtodi_posts (creatorId, topicId, isReply, post) VALUES (?, ?, ?, ?)')) {
             $stmt->bind_param('ssss',$_SESSION['id'], $topic, $postId, $reply);

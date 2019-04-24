@@ -1,5 +1,6 @@
-function displayReplyBox(id) {
+function displayReplyBox(id, fp, location, topic) {
     let targetDiv = document.getElementById(id).getElementsByClassName("reply-area")[0];
+    let formID = "reply_form"+id;
 
     if (targetDiv.style.display === "inline-block") {
         targetDiv.innerHTML = "";
@@ -8,13 +9,16 @@ function displayReplyBox(id) {
     } else {
         targetDiv.style.display = "inline-block";
     }
-    let formID = "reply_form"+id;
+
     targetDiv.innerHTML = `
             <div class="reply-box">
                 <textarea name="reply" form="`+ formID +`" placeholder="Please enter your reply..."></textarea>
             </div>
-            <form action="`+window.location.href+`" id="`+ formID +`" onsubmit="return validateReply('`+formID+`')" method="post">
+            <form action="interaction.php" id="`+ formID +`" onsubmit="return validateReply('`+formID+`')" method="post">
                 <input type="hidden" id="postId" name="postId" value="`+ id.slice(1) +`">
+                <input type="hidden" name="location" value="`+ location +`">
+                <input type="hidden" name="fp" value="`+ fp +`">
+                <input type="hidden" name="topic" value="`+ topic +`">
                 <input type="submit" value="Reply">
             </form>`;
 }

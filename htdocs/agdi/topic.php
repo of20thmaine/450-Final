@@ -14,20 +14,6 @@
             $loggedIn = true;
         }
 
-        if (isset($_POST['postId'], $_POST['reply']) && $loggedIn) {
-            $postId = filter_var(trim($_POST['postId']), FILTER_SANITIZE_STRING);
-            $reply = filter_var(htmlspecialchars($_POST['reply']), FILTER_SANITIZE_STRING);
-
-            if ($postId == $fp) {
-                $postId = null;
-            }
-
-            if ($stmt = $con->prepare('INSERT INTO agtodi_posts (creatorId, topicId, isReply, post) VALUES (?, ?, ?, ?)')) {
-                $stmt->bind_param('ssss',$_SESSION['id'], $topic, $postId, $reply);
-                $stmt->execute();
-            }
-        }
-
         if ($loggedIn) {
             if ($stmt = $con->prepare('SELECT a.id, a.creatorId, a.post, a.creationDate, 
                   (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE a.id = postId) AS agrees, 
@@ -109,7 +95,8 @@
                     echo '" name="disagree" type="submit" value="'.$posts[$i][0].'">Di</button>
                             <div class="count dis">'.$posts[$i][5].'</div>';
             if ($replyTier < 2) {
-                echo ' <button class="foot-button re-but" onclick="displayReplyBox(\'c'.$posts[$i][0].'\'); return false;">Reply</button>
+                echo ' <button class="foot-button re-but" onclick="displayReplyBox(\'c'.$posts[$i][0].'\','.$fp.',
+                            \'topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'\','.$topic.'); return false;">Reply</button>
                         <div class="count rep">'.$count.'</div>';
             }
                 echo    '</form>
