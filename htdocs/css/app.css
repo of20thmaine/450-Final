@@ -168,7 +168,7 @@ ul li {
 
 .argument {
 	grid-column: 3;
-	margin-top: 50px;
+	margin-top: 55px;
 }
 
 .right-area {
@@ -213,24 +213,20 @@ ul li {
 .card {
 	border: #000000 1px solid;
 	padding: 18px;
-	margin-bottom: 24px;
+	margin-bottom: 1em;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.23);
 }
-
-.header-card {
-	border-left: #007aff 8px solid;
-}
-
 .agree-card {
-	border-left: #007aff 4px solid;
+	border-left: #007aff 3px solid;
 }
-
 .disagree-card {
-	border-left: #ff6200 4px solid;
+	border-left: #ff6200 3px solid;
 }
-
 .neutral-card {
-	border-left: #5b6574 4px solid;
+	border-left: #5b6574 3px solid;
+}
+.dispute-card {
+	border-left: #9966ff 3px solid;
 }
 
 .tier {
@@ -268,6 +264,7 @@ ul li {
 	grid-column: 4;
 }
 
+/* Buttons */
 .foot-button {
 	background-color: white;
 	border-radius: 5px;
@@ -279,22 +276,18 @@ ul li {
 	padding: 1px 8px 1px 8px;
 	margin: 0 4px 0 4px;
 }
-
 .ag-but {
 	border: #007aff 2px solid;
 	color: #007aff;
 }
-
 .di-but {
 	border: #ff6200 2px solid;
 	color: #ff6200;
 }
-
 .re-but {
 	border: #00AB84 2px solid;
 	color: #00AB84;
 }
-
 .tr-but {
 	margin-right: 20px;
 	padding: 2px 10px 2px 10px;
@@ -303,24 +296,39 @@ ul li {
 	font-size: 0.8em;
 	font-weight: 300;
 }
-
 .ag-but:hover {
 	background-color: #007aff;
 	color: white;
 }
-
+.ag-but-sel {
+	border: #007aff 2px solid;
+	background-color: #007aff;
+	color: white;
+}
 .di-but:hover {
 	background-color: #ff6200;
 	color: white;
 }
-
-.re-but:hover {
+.di-but-sel {
+	border: #ff6200 2px solid;
+	background-color: #ff6200;
+	color: white;
+}
+.re-but:hover, .re-but:focus, .re-but:visited {
 	background-color:#00AB84;
 	color: white;
 }
-
 .tr-but:hover {
 	background-color: black;
+	color: white;
+}
+.tr-but-sel {
+	margin-right: 20px;
+	padding: 2px 10px 2px 10px;
+	border: rgba(0,0,0,0.5) 1px solid;
+	font-size: 0.8em;
+	font-weight: 300;
+	background-color: rgba(0,0,0,0.5);
 	color: white;
 }
 
@@ -569,7 +577,7 @@ ul li {
 	border-radius: 5px;
 	background-color: #00AB84;
 	color: white;
-	font-size: 1.1em;
+	font-size: 1.2em;
 	padding: 2px 30px 2px 30px;
 	font-weight: bold;
 }

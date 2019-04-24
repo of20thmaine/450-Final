@@ -14,40 +14,6 @@
             $loggedIn = true;
         }
 
-        if ((isset($_POST['agree']) || isset($_POST['disagree'])) && $loggedIn) {
-            $agree = false;
-            if (isset($_POST['agree'])) {
-                $postId = filter_var(trim($_POST['agree']), FILTER_SANITIZE_STRING);
-                $agree = true;
-            } else if (isset($_POST['disagree'])) {
-                $postId = filter_var(trim($_POST['disagree']), FILTER_SANITIZE_STRING);
-            }
-
-            if ($stmt = $con->prepare('SELECT * FROM agtodi_interactions WHERE postId = ? AND creatorId = ?')) {
-                $stmt->bind_param('ss',$postId, $_SESSION['id']);
-                $stmt->execute();
-                $stmt->store_result();
-
-                if ($stmt->num_rows > 0) {
-                    if ($agree) {
-                        $sql = 'UPDATE agtodi_interactions SET isLike = 1, isDislike = 0, isTroll = 0 WHERE postId = ? AND creatorId = ?';
-                    } else {
-                        $sql = 'UPDATE agtodi_interactions SET isLike = 0, isDislike = 1, isTroll = 0 WHERE postId = ? AND creatorId = ?';
-                    }
-                } else {
-                    if ($agree) {
-                        $sql = 'INSERT INTO agtodi_interactions (postId, creatorId, isLike) VALUES (?, ?, 1)';
-                    } else {
-                        $sql = 'INSERT INTO agtodi_interactions (postId, creatorId, isDislike) VALUES (?, ?, 1)';
-                    }
-                }
-                if ($stmt = $con->prepare($sql)) {
-                    $stmt->bind_param('ss',$postId, $_SESSION['id']);
-                    $stmt->execute();
-                }
-            }
-        }
-
         if (isset($_POST['postId'], $_POST['reply']) && $loggedIn) {
             $postId = filter_var(trim($_POST['postId']), FILTER_SANITIZE_STRING);
             $reply = filter_var(htmlspecialchars($_POST['reply']), FILTER_SANITIZE_STRING);
@@ -112,8 +78,10 @@
             return 'agree-card';
         } else if ($ags < $dis) {
             return 'disagree-card';
-        } else {
+        } else if ($ags == 0 && $dis == 0) {
             return 'neutral-card';
+        } else {
+            return 'dispute-card';
         }
     }
 
@@ -129,10 +97,16 @@
                 <p class="card-body">'.$posts[$i][2].'</p>
                 <div class="card-footer">
                     <div class="footer-left">
-                         <form action="topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'" method="post">
-                            <button class="foot-button ag-but" name="agree" type="submit" value="'.$posts[$i][0].'">Ag</button>
+                         <form action="interaction.php" method="post">
+                            <input type="hidden" name="location" value="topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'">
+                            <input type="hidden" name="fp" value="'.$fp.'">
+                            <button class="foot-button ag-but';
+                    if ($tier != -1 && $posts[$i][11] == 1) {echo '-sel';}
+                    echo '" name="agree" type="submit" value="'.$posts[$i][0].'">Ag</button>
                             <div class="count ags">'.$posts[$i][4].'</div>
-                            <button class="foot-button di-but" name="disagree" type="submit" value="'.$posts[$i][0].'">Di</button>
+                            <button class="foot-button di-but';
+                    if ($tier != -1 && $posts[$i][12] == 1) {echo '-sel';}
+                    echo '" name="disagree" type="submit" value="'.$posts[$i][0].'">Di</button>
                             <div class="count dis">'.$posts[$i][5].'</div>';
             if ($replyTier < 2) {
                 echo ' <button class="foot-button re-but" onclick="displayReplyBox(\'c'.$posts[$i][0].'\'); return false;">Reply</button>
@@ -140,9 +114,13 @@
             }
                 echo    '</form>
                      </div>';
-        if ($tier >= $posts[$i][9]) {
-            echo '<form class="tr-form" action="topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'" method="post">
-                                <button class="foot-button tr-but" name="troll" type="submit" value="'.$posts[$i][0].'">Troll</button>
+        if ($tier >= $posts[$i][9] && $posts[$i][1] != $_SESSION['id']) {
+            echo '<form class="tr-form" action="interaction.php" method="post">
+                     <input type="hidden" name="location" value="topic.php?topic='.$topic.'&fp='.$fp.'&title='.$topicTitle.'">
+                     <input type="hidden" name="user" value="'.$posts[$i][1].'">
+                     <button class="foot-button tr-but';
+            if ($tier != -1 && $posts[$i][13] == 1) {echo '-sel';}
+            echo '" name="troll" type="submit" value="'.$posts[$i][0].'">Troll</button>
                    </form>';
         }
         echo '<div class="footer-right">
@@ -161,7 +139,7 @@
 
 <div class="argument">
     <div class="threads-header">
-        <h2>ag:di//<?php echo $topicTitle; ?></h2>
+        <h2>ag:di//<?php echo $topicTitle; ?>/~</h2>
     </div>
     <div class="card-area">
         <?php printCard($fp_index, $posts, $nested, $topic, $tier, $fp, $topicTitle, 0); ?>
@@ -172,13 +150,25 @@
                 if ($posts[$i][0] == $fp) {
                     continue;
                 }
-                if (array_key_exists($posts[$i][0], $nested)) {
+                if (array_key_exists($posts[$i][0], $nested) && $posts[$i][6] == null) {
                     printCard($i, $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
                     $tierCount++;
                     echo '<div class="tier">';
                     for ($j = 0; $j < count($nested[$posts[$i][0]]); ++$j) {
-                        printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
+                        if (array_key_exists($posts[$nested[$posts[$i][0]][$j]][0], $nested)) {
+                            printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
+                            $tierCount++;
+                            echo '<div class="tier">';
+                            for ($k = 0; $k < count($nested[$posts[$nested[$posts[$i][0]][$j]][0]]); ++$k) {
+                                printCard($nested[$posts[$nested[$posts[$i][0]][$j]][0]][$k], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
+                            }
+                            echo '</div>';
+                            $tierCount--;
+                        } else {
+                            printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
+                        }
                     }
+
                     echo '</div>';
                     $tierCount--;
                 } else if ($posts[$i][6] != null) {

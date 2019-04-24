@@ -51,27 +51,27 @@ CREATE TABLE agtodi_topics (
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_posts (
-      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-      creatorId INT UNSIGNED NOT NULL,
-      topicId INT UNSIGNED NOT NULL,
-      isReply  INT UNSIGNED,
-      post TEXT NOT NULL,
-      creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (id),
-      FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE RESTRICT,
-      FOREIGN KEY (topicId) REFERENCES agtodi_topics(id) ON DELETE CASCADE,
-      FOREIGN KEY (isReply) REFERENCES agtodi_posts(id) ON DELETE CASCADE
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    creatorId INT UNSIGNED NOT NULL,
+    topicId INT UNSIGNED NOT NULL,
+    isReply  INT UNSIGNED,
+    post TEXT NOT NULL,
+    creationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE RESTRICT,
+    FOREIGN KEY (topicId) REFERENCES agtodi_topics(id) ON DELETE CASCADE,
+    FOREIGN KEY (isReply) REFERENCES agtodi_posts(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 CREATE TABLE agtodi_interactions (
-  postId INT UNSIGNED NOT NULL,
-  creatorId INT UNSIGNED NOT NULL,
-  isLike TINYINT DEFAULT 0,
-  isDislike TINYINT DEFAULT 0,
-  isTroll TINYINT DEFAULT 0,
-  PRIMARY KEY (postId, creatorId),
-  FOREIGN KEY (postId) REFERENCES agtodi_posts(id) ON DELETE CASCADE,
-  FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE CASCADE
+    postId INT UNSIGNED NOT NULL,
+    creatorId INT UNSIGNED NOT NULL,
+    isLike TINYINT DEFAULT 0,
+    isDislike TINYINT DEFAULT 0,
+    isTroll TINYINT DEFAULT 0,
+    PRIMARY KEY (postId, creatorId),
+    FOREIGN KEY (postId) REFERENCES agtodi_posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (creatorId) REFERENCES agtodi_users(id) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 /* Sets foreign key checks back ON. */

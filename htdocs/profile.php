@@ -5,6 +5,11 @@
 
     if (isset($_GET['id'])) {
         $id = filter_var(trim($_GET['id']), FILTER_SANITIZE_STRING);
+
+        // Display active topics, so get join of posts and topics sorted by post creationdate.
+        if ($stmt = $con->prepare('SELECT ')) {
+
+        }
     }
 
     $pageTitle = 'Agoti - User';
