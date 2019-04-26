@@ -13,12 +13,14 @@
 			<a href="/"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
 		</div>
 		<div class="topnav-search">
-            <div class="search">
-                <input type="text" class="searchTerm" placeholder="Search agtodi...">
-                <button type="submit" class="searchButton">
-                    <i class="fa fa-search"></i>
-                </button>
-            </div>
+            <form action = "search.php" method="get">
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="Search agtodi..." name ="search">
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
 		<div class="topnav-right">
             <?php
