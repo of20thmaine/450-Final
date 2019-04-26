@@ -78,6 +78,10 @@
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
+<div class="sidemenu">
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/sideMenu.php'); ?>
+</div>
+
 <div class="argument">
     <div class="register">
         <h1>Register for Agtodi</h1>

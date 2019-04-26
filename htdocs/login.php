@@ -45,6 +45,10 @@
 	include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
+<div class="sidemenu">
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/sideMenu.php'); ?>
+</div>
+
 <div class="argument">
 	<div class="login">
 		<h1>Welcome to Agtodi!</h1>

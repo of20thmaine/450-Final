@@ -123,10 +123,13 @@
     $pageTitle = $posts[$fp_index][2];
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
+<div class="sidemenu">
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/sideMenu.php'); ?>
+</div>
 
 <div class="argument">
     <div class="threads-header">
-        <h2>ag:di//<?php echo $topicTitle; ?>/~</h2>
+        <h2><?php echo $topicTitle; ?>/</h2>
     </div>
     <div class="card-area">
         <?php printCard($fp_index, $posts, $nested, $topic, $tier, $fp, $topicTitle, 0); ?>

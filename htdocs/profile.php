@@ -10,11 +10,18 @@
         if ($stmt = $con->prepare('SELECT ')) {
 
         }
+    } else {
+        header('HTTP/1.0 404 Not Found', true, 404);
+        die();
     }
 
     $pageTitle = 'Agoti - User';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
+
+<div class="sidemenu">
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/sideMenu.php'); ?>
+</div>
 
 <div class="argument">
 

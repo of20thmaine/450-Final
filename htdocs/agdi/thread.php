@@ -7,11 +7,13 @@
         $threadId = filter_var(trim($_GET['thread']), FILTER_SANITIZE_STRING);
         $threadTitle = filter_var(trim($_GET['title']), FILTER_SANITIZE_STRING);
 
-        if ($stmt = $con->prepare('SELECT a.firstPostId, b.post, b.creatorId, b.creationDate, 
-              (SELECT IFNULL(SUM(isLike),0) FROM agtodi_topics a JOIN agtodi_posts b ON b.id = a.firstPostId JOIN agtodi_interactions) AS ags,
-              (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_topics a JOIN agtodi_posts b ON b.id = a.firstPostId JOIN agtodi_interactions) AS dis,
-              (SELECT COUNT(*) FROM agtodi_posts WHERE topicId = a.id ) AS replies, c.firstName, c.lastName 
-              FROM agtodi_topics a JOIN agtodi_posts b ON b.id = a.firstPostId JOIN agtodi_users c ON c.id = b.creatorId WHERE a.threadId = ?')) {
+        if ($stmt = $con->prepare('SELECT a.id, a.firstPostId, b.post, b.creatorId, b.creationDate, 
+              (SELECT IFNULL(SUM(isLike),0) FROM agtodi_posts JOIN agtodi_interactions ON agtodi_interactions.postId
+               = agtodi_posts.id WHERE agtodi_posts.topicId = a.id) AS ags, (SELECT IFNULL(SUM(isDislike),0) FROM
+                agtodi_posts JOIN agtodi_interactions ON agtodi_interactions.postId = agtodi_posts.id WHERE
+                 agtodi_posts.topicId = a.id) AS dis, (SELECT COUNT(*) FROM agtodi_posts WHERE topicId = a.id )
+                  AS replies, c.firstName, c.lastName FROM agtodi_topics a JOIN agtodi_posts b ON b.id = a.firstPostId
+                   JOIN agtodi_users c ON c.id = b.creatorId WHERE a.threadId = ?')) {
             $stmt->bind_param('s', $threadId);
             $stmt->execute();
             $stmt->store_result();
@@ -26,6 +28,10 @@
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
+<div class="sidemenu">
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/sideMenu.php'); ?>
+</div>
+
 <div class="argument">
     <div class="threads-header">
         <?php
@@ -38,7 +44,7 @@
     </div>
     <div class="card-area">
     <?php
-        $stmt->bind_result($fpId, $argument, $creatorId, $date, $ags, $dis, $replies, $firstName, $lastName);
+        $stmt->bind_result($id, $fpId, $argument, $creatorId, $date, $ags, $dis, $replies, $firstName, $lastName);
 
         while ($stmt->fetch()) {
             if ($ags > $dis) {
@@ -50,7 +56,7 @@
             } else {
                 $class = 'dispute-card';
             }
-            echo "<a href=\"topic.php?topic=$threadId&fp=$fpId&title=$threadTitle\">
+            echo "<a href=\"topic.php?topic=$id&fp=$fpId&title=$threadTitle\">
                   <div class=\"card $class\">
                     <p class=\"card-body\">$argument</p>
                     <div class=\"card-footer\">
