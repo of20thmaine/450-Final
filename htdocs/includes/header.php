@@ -10,14 +10,15 @@
 <body>
 	<div class="topnav">
 		<div class="topnav-left">
+            <i class="fas fa-bars" id="menu-button"></i>
 			<a href="/"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
 		</div>
 		<div class="topnav-search">
-			<form action ="search.php" method="get">
+			<form action="/search.php" method="get">
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
 			   <input type="text" class="searchTerm" name="search" placeholder="Search agtodi...">
-			   <button type="submit" class="searchButton">
-				   <i class="fa fa-search"></i>
-			   </button>
 		   </form>
         </div>
 		<div class="topnav-right">

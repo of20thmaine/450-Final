@@ -28,9 +28,9 @@
     <div class="card-area">
         <?php
             $stmt->bind_result($id, $creationDate, $title);
-            $toggler = true;
+            $toggle = true;
             while ($stmt->fetch()) {
-                if ($toggler) {
+                if ($toggle) {
                     echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card" style="width: 44%; float:left"><p class="card-body">'.$title.'</p>
                       <div class="card-footer"><div class="footer-right"><p class="card-datetime">'.$creationDate.'</p>
                       </div></div></div></a>';
@@ -39,7 +39,7 @@
                       <div class="card-footer"><div class="footer-right"><p class="card-datetime">'.$creationDate.'</p>
                       </div></div></div></a>';
                 }
-                $toggler = !$toggler;
+                $toggle = !$toggle;
             }
             $stmt->close();
             mysqli_close($con);

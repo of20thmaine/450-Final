@@ -23,7 +23,7 @@ a {
 	background-color: white;
 	width: 100%;
 	height: 50px;
-	grid-template-columns: auto 150px minmax(min-content, 700px) 350px auto;
+	grid-template-columns: minmax(max-content, 1fr) minmax(min-content, 600px) minmax(max-content, 1fr);
 	grid-auto-rows: auto;
 	grid-gap: 40px;
 	align-items: center;
@@ -33,17 +33,20 @@ a {
 }
 
 .topnav-left {
-	grid-column: 2;
+	grid-column: 1;
+	text-align: left;
+	margin-left: 2em;
 }
 
 .topnav-search {
-	grid-column: 3;
-    box-sizing: border-box;
+	grid-column: 2;
+	text-align: center;
 }
 
 .topnav-right {
-	grid-column: 4;
-	display: inline-block;
+	grid-column: 3;
+	text-align: right;
+	margin-right: 2em;
 }
 
 .topnav-left p {
@@ -55,26 +58,28 @@ a {
 	letter-spacing: 1.5px;
 }
 
+#menu-button {
+	display: inline-block;
+	font-size: 1.4em;
+	padding: 0 2em 0 0;
+	color: #5b6574;
+	text-align: left;
+}
 #logo-l {
 	color: #007aff;
 }
-
 #logo-r {
 	color: #ff6200;
 }
 
-
-.search {
-    width: 100%;
-    position: relative
-}
-
 .searchTerm {
     float: right;
-    width: 100%;
+    width: calc( 100% - 30px);
+	height: 30px;
     border: 1px solid #efefef;
     padding: 5px;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
     outline: none;
     background: #efefef;
     color:#5b6574;
@@ -83,15 +88,16 @@ a {
 }
 
 .searchButton {
-    position: absolute;
-    left: -30px;
-    width: 36px;
-    height: 31px;
+	float:left;
+	margin-right: -1px;
+    width: 30px;
+    height: 30px;
     border: 1px solid #efefef;
     background: #efefef;
     color: #5b6574;
     text-align: center;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
     cursor: pointer;
     font-size: 1.0em;
 }
@@ -316,7 +322,6 @@ a {
 	background-color: rgba(0,0,0,0.5);
 	color: white;
 }
-
 .count {
 	display: inline-block;
 	font-size: 0.9em;
@@ -330,12 +335,10 @@ a {
 	margin: 0;
 	padding: 0;
 }
-
 .card-footer p {
 	white-space: nowrap;
 	color: #444343;
 }
-
 .card-body {
 	font-size: 1.2em;
 	color: black;
