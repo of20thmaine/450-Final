@@ -755,8 +755,14 @@ a {
 	.lg-button {
 		display: none;
 	}
+	.topnav-right p {
+		display:none;
+	}
 	.hidden {
 		display: block;
+	}
+	.profile-button {
+		display: none;
 	}
 	#hidden-menu-1 {
 		display:block;

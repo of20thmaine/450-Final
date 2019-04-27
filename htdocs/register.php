@@ -65,11 +65,9 @@
                             $registerErrors[] = 'We experienced an error, please try again.';
                         }
                     }
-                    $stmt->close();
                 } else {
                     $registerErrors[] = 'We experienced an error, please try again.';
                 }
-                $con->close();
             }
         }
     }
@@ -119,4 +117,5 @@
 </div>
 
 <?php
+    mysqli_close($con);
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');

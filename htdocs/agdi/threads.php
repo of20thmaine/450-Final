@@ -8,7 +8,7 @@
         $stmt->store_result();
     }
 
-    $pageTitle = 'Agtodi - Threads';
+    $pageTitle = 'Agtodi - Topics';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
@@ -18,7 +18,7 @@
 
 <div class="argument">
     <div class="threads-header">
-        <h2>Agtodi Threads</h2>
+        <h2>Agtodi Topics</h2>
         <?php
             if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
                 echo '<button class="lg-button" onclick="window.location.href=\'createthread.php\'">Create</button>';

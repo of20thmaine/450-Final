@@ -7,7 +7,8 @@
 /* CHANGE NAME IF USING A DIFFERENT DATABASE;
    ELSE: Create a database (command line or with
    PHPMyAdmin GUI) called agtodi_db */
-USE agtodi_db;
+-- USE agtodi_db;
+USE id9426951_agtodi_db;
 
 /* Lets us wipe old tables without foreign key errors */
 SET FOREIGN_KEY_CHECKS=0;
