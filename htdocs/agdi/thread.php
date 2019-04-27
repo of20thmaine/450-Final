@@ -24,7 +24,7 @@
         exit;
     }
 
-    $pageTitle = $threadTitle.' | Topics';
+    $pageTitle = $threadTitle.': Threads';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
@@ -58,8 +58,7 @@
             }
             echo "<a href=\"topic.php?topic=$id&fp=$fpId&title=$threadTitle\">
                   <div class=\"card $class\">
-                    <p class=\"card-body\" style=\"overflow:hidden;text-overflow:ellipsis;display:-webkit-box;
-                        -webkit-box-orient:vertical;-webkit-line-clamp:3;line-height:1.5em;max-height:4.5em; \">$argument</p>
+                    <p class=\"card-body o-flow-h\">$argument</p>
                     <div class=\"card-footer\">
 					    <div class=\"footer-left\">
 					        <button class=\"foot-button ag-but\">$ags</button>

@@ -9,10 +9,9 @@ function displayReplyBox(id, fp, location, topic) {
     } else {
         targetDiv.style.display = "inline-block";
     }
-
     targetDiv.innerHTML = `
             <div class="reply-box">
-                <textarea name="reply" form="`+ formID +`" placeholder="Please enter your reply..."></textarea>
+                <textarea contenteditable="true" name="reply" form="`+ formID +`" placeholder="Please enter your reply..."></textarea>
             </div>
             <form action="interaction.php" id="`+ formID +`" onsubmit="return validateReply('`+formID+`')" method="post">
                 <input type="hidden" id="postId" name="postId" value="`+ id.slice(1) +`">
@@ -25,39 +24,46 @@ function displayReplyBox(id, fp, location, topic) {
 
 function validateReply(id) {
     let reply = document.getElementById(id).elements["reply"].value;
-    // let reply = document.forms["reply_form"+id]["reply"].value;
+
     if (reply.length < 2) {
         alert("Reply must be longer than 1 character.");
+        return false;
+    } else if (reply.length > 30000) {
+        alert("Character limit is 30,000; please shorten your post.");
+        return false;
+    } else if (newLineCount(reply) > 16) {
+        alert("Replies may only contain 16 or less user inserted lines (enter key presses).");
         return false;
     }
     return true;
 }
 
-function sideMenuToggle(id) {
-    let targetDiv = document.getElementsByClassName("sidemenu")[0];
+function newLineCount(reply) {
+    let count = 0;
+    for (let i = 0; i < reply.length; ++i) {
+        if (reply.charAt(i) === '\n' || reply.charAt(i) === '\r') {
+            count++;
+        }
+    }
+    return count;
+}
 
+function toggleSideMenu() {
+    let targetDiv = document.getElementsByClassName('sidemenu')[0];
 
     if (targetDiv.style.display === "block") {
         targetDiv.style.display = "none";
-        id.classList.remove("fa-times");
-        id.classList.add("fa-bars");
     } else {
         targetDiv.style.display = "block";
-        id.classList.remove("fa-bars");
-        id.classList.add("fa-times");
     }
 }
 
-function getWidth() {
-    if (self.innerWidth) {
-        return self.innerWidth;
-    }
+function toggleHiddenMenu() {
+    let targetDiv = document.getElementsByClassName('hidden-sub')[0];
 
-    if (document.documentElement && document.documentElement.clientWidth) {
-        return document.documentElement.clientWidth;
-    }
-
-    if (document.body) {
-        return document.body.clientWidth;
+    if (targetDiv.style.display === "block") {
+        targetDiv.style.display = "none";
+    } else {
+        targetDiv.style.display = "block";
     }
 }

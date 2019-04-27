@@ -5,12 +5,12 @@
 	<title><?php echo $pageTitle; ?></title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-	<link rel="stylesheet" href="/css/min.css">
+	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
 	<div class="topnav">
 		<div class="topnav-left">
-            <i class="fas fa-bars" id="menu-button" onclick="sideMenuToggle(this)"></i>
+            <i class="fas fa-bars" id="menu-button" onclick="toggleSideMenu()"></i>
 			<a href="/"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
 		</div>
 		<div class="topnav-search">
@@ -24,17 +24,35 @@
 		<div class="topnav-right">
             <?php
                  if (isset($_SESSION['firstName'], $_SESSION['lastName'], $_SESSION['id'])) {
-                    echo '<button class="lg-button" onclick="window.location.href=\'/logout.php\'">Logout</button>';
+                    echo '<button class="lg-button rhi" onclick="window.location.href=\'/logout.php\'">Logout</button>';
                     echo '<button class="profile-button" onclick="window.location.href=\'/profile.php?id='.
                         $_SESSION['id'].'\'"><i class="fa fa-user"></i></button>';
                     echo '<p>'.$_SESSION['firstName'].' '.$_SESSION['lastName'].'</p>';
                  } else {
-                    echo '<button class="lg-button" onclick="window.location.href=\'/login.php\'">Login</button>
-			              <button class="lg-button" onclick="window.location.href=\'/register.php\'">Register</button>';
+                    echo '<button class="lg-button rhi" onclick="window.location.href=\'/login.php\'">Login</button>
+			              <button class="lg-button rhi" onclick="window.location.href=\'/register.php\'">Register</button>';
                  }
             ?>
             <div class="hidden">
-                <i id="mobile-search" class="fas fa-search" onclick=""></i>
+                <i id="show-hidden" class="fa fa-ellipsis-v" aria-hidden="true" onclick="toggleHiddenMenu()"></i>
+                <div class="hidden-sub">
+                    <div class="hidden-search">
+                        <form action="/search.php" method="get">
+                            <button type="submit" class="searchButton">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <input type="text" class="searchTerm" name="search" placeholder="Search agtodi...">
+                        </form>
+                    </div>
+                    <?php
+                    if (isset($_SESSION['firstName'], $_SESSION['lastName'], $_SESSION['id'])) {
+                        echo '<button class="lg-button" onclick="window.location.href=\'/logout.php\'">Logout</button>';
+                    } else {
+                        echo '<button class="lg-button" onclick="window.location.href=\'/login.php\'">Login</button>
+			              <button class="lg-button" onclick="window.location.href=\'/register.php\'">Register</button>';
+                    }
+                    ?>
+                </div>
             </div>
 		</div>
 	</div>

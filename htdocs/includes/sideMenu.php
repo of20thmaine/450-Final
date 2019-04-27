@@ -22,15 +22,18 @@
 $stmt1->close();
 ?>
 <div class="side-bar">
+    <div class="side-hidden">
+        <div class="logo-h">
+            <div class="logo-t ags">agt</div>
+            <div class="logo-t dis">odi</div>
+        </div>
+        <i class="fa fa-times" aria-hidden="true" onclick="toggleSideMenu()"></i>
+    </div>
     <a href="/"><div class="menu-header-big"><i class="fa fa-home" aria-hidden="true"></i>Home</div></a>
     <a href="/agdi/threads.php"><div class="menu-header-big"><i class="fa fa-list" aria-hidden="true"></i>Topics</div></a>
     <a href="<?php
                 if (isset($_SESSION['id'])) { echo '/profile.php?id='.$_SESSION['id']; } else { echo '/login.php?m=3'; }
              ?>"><div class="menu-header-big"><i class="fas fa-user" aria-hidden="true"></i>Profile</div></a>
-    <?php
-       if (!isset($_SESSION['id'])) {
-        echo '<a href="/login.php"><div id="hidden-menu-1" class="menu-header-big"><i class="fas fa-sign-in-alt"></i>Login</div></a>
-        <a href="/register.php"><div id="hidden-menu-2" class="menu-header-big"><i class="fas fa-user-tie"></i>Register</div></a>'; } ?>
     <div class="up-menu">
         <div class="menu-header dis"><i class="fab fa-hotjar" aria-hidden="true"></i>&emsp;Hot</div>
         <?php
@@ -43,7 +46,6 @@ $stmt1->close();
                             <div class="count dis">'.$posts1['dis'].'</div>
                             <div class="count rep">'.$posts1['reps'].'</div>
                     </div></div></a>';
-
         }?>
     </div>
 </div>
