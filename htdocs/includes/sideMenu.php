@@ -25,8 +25,12 @@
     <a href="/"><div class="menu-header-big"><i class="fa fa-home" aria-hidden="true"></i>&emsp;Home</div></a>
     <a href="/agdi/threads.php"><div class="menu-header-big"><i class="fa fa-list" aria-hidden="true"></i>&emsp;Topics</div></a>
     <a href="<?php
-                if (isset($_SESSION['id'])) { echo '/profile.php?id='.$_SESSION['id']; } else { echo '/login.php'; }
+                if (isset($_SESSION['id'])) { echo '/profile.php?id='.$_SESSION['id']; } else { echo '/login.php?m=3'; }
              ?>"><div class="menu-header-big"><i class="fas fa-user" aria-hidden="true"></i>&emsp;Profile</div></a>
+    <?php
+       if (!isset($_SESSION['id'])) {
+        echo '<a href="/login.php"><div id="hidden-menu-1" class="menu-header-big"><i class="fas fa-sign-in-alt"></i>&emsp;Login</div></a>
+        <a href="/login.php"><div id="hidden-menu-2" class="menu-header-big"><i class="fas fa-user-tie"></i>&emsp;Register</div></a>'; } ?>
     <div class="up-menu">
         <div class="menu-header dis"><i class="fab fa-hotjar" aria-hidden="true"></i>&emsp;Hot</div>
         <?php

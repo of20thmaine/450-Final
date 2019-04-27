@@ -58,7 +58,7 @@
                             $stmt->execute();
 
                             mysqli_close($con);
-                            header('Location: login.php');
+                            header('Location: login.php?m=1');
                             exit;
 
                         } else {

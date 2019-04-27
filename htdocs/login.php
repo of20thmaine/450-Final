@@ -58,6 +58,16 @@
                     echo '<p class="form-error">'."$element".'</p>';
                 }
             }
+            if (isset($_GET['m'])) {
+                $m = filter_var(trim($_GET['m']), FILTER_SANITIZE_STRING);
+                if ($m == 1) {
+                    echo '<p class="form-message">You successfully registered! Please sign in.</p>';
+                } else if ($m == 2) {
+                    echo '<p class="form-message">You must login to participate.</p>';
+                } else if ($m == 3) {
+                    echo '<p class="form-message">Login to view your profile.</p>';
+                }
+            }
         ?>
 		<form action="login.php" method="post">
 			<label for="username">

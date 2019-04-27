@@ -10,7 +10,7 @@
 <body>
 	<div class="topnav">
 		<div class="topnav-left">
-            <i class="fas fa-bars" id="menu-button"></i>
+            <i class="fas fa-bars" id="menu-button" onclick="sideMenuToggle(this)"></i>
 			<a href="/"><p id="logo-l">agt</p><p id="logo-r">odi</p></a>
 		</div>
 		<div class="topnav-search">
@@ -33,6 +33,9 @@
 			              <button class="lg-button" onclick="window.location.href=\'/register.php\'">Register</button>';
                  }
             ?>
+            <div class="hidden">
+                <i id="mobile-search" class="fas fa-search" onclick=""></i>
+            </div>
 		</div>
 	</div>
 	<div class="content">

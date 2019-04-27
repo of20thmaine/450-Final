@@ -2,7 +2,7 @@
     session_start();
 
     if (!isset($_SESSION['id'])) {
-        header('Location: /login.php?msg=interact');
+        header('Location: /login.php?m=2');
         exit;
     }
 

@@ -32,3 +32,17 @@ function validateReply(id) {
     }
     return true;
 }
+
+function sideMenuToggle(id) {
+    let targetDiv = document.getElementsByClassName("sidemenu")[0];
+
+    if (targetDiv.style.display === "block") {
+        targetDiv.style.display = "none";
+        id.classList.remove("fa-times");
+        id.classList.add("fa-bars");
+    } else {
+        targetDiv.style.display = "block";
+        id.classList.remove("fa-bars");
+        id.classList.add("fa-times");
+    }
+}
