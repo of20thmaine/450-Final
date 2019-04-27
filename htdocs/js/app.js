@@ -36,6 +36,7 @@ function validateReply(id) {
 function sideMenuToggle(id) {
     let targetDiv = document.getElementsByClassName("sidemenu")[0];
 
+
     if (targetDiv.style.display === "block") {
         targetDiv.style.display = "none";
         id.classList.remove("fa-times");
@@ -44,5 +45,19 @@ function sideMenuToggle(id) {
         targetDiv.style.display = "block";
         id.classList.remove("fa-bars");
         id.classList.add("fa-times");
+    }
+}
+
+function getWidth() {
+    if (self.innerWidth) {
+        return self.innerWidth;
+    }
+
+    if (document.documentElement && document.documentElement.clientWidth) {
+        return document.documentElement.clientWidth;
+    }
+
+    if (document.body) {
+        return document.body.clientWidth;
     }
 }

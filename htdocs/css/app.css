@@ -207,6 +207,11 @@ a {
 	margin: 0;
 	padding: 0;
 }
+.prof-header  h2 i {
+	padding-right: 1em;
+	color: #ff6200;
+}
+
 .prof-header  h3 {
 	color: #5b6574;
 	font-size: 1.2em;
@@ -382,7 +387,9 @@ a {
 
 /* Ad Area */
 .right-area img {
-	margin: 100px 0 0 80px;
+	position:absolute;
+	right:0;
+	margin: calc(50px + 4em) 2em 0 0;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.23);
 }
 
@@ -415,7 +422,7 @@ a {
 	border-bottom-right-radius: 10px;
 }
 .menu-header-big i {
-	padding-right: 8px;
+	padding-right: 2em;
 }
 .menu-header-big:hover {
 	background-color: #00AB84;

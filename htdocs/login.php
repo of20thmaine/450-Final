@@ -37,7 +37,6 @@
                 $loginErrors[] = 'Invalid username.';
 			}
 			$stmt->close();
-            mysqli_close($con);
 		}
 	}
 
@@ -84,4 +83,5 @@
 </div>
 
 <?php
+    mysqli_close($con);
 	include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');

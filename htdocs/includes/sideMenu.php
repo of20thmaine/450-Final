@@ -10,38 +10,38 @@
                                 (SELECT SUM(ags + dis)) AS total
                                 FROM agtodi_posts p JOIN agtodi_topics q ON p.id = q.firstPostId
                                 ORDER BY total DESC
-                                LIMIT 10";
+                                LIMIT 8";
 
     if ($stmt1 = $con->prepare($query)) {
-        $stmt1->execute();
-        $post_result = mysqli_stmt_get_result($stmt1);
-        if ($post_result) {
-            $all_posts = mysqli_fetch_all($post_result, MYSQLI_ASSOC);
-        }
+    $stmt1->execute();
+    $post_result = mysqli_stmt_get_result($stmt1);
+    if ($post_result) {
+        $all_posts1 = mysqli_fetch_all($post_result, MYSQLI_ASSOC);
     }
-    $stmt1->close();
+}
+$stmt1->close();
 ?>
 <div class="side-bar">
-    <a href="/"><div class="menu-header-big"><i class="fa fa-home" aria-hidden="true"></i>&emsp;Home</div></a>
-    <a href="/agdi/threads.php"><div class="menu-header-big"><i class="fa fa-list" aria-hidden="true"></i>&emsp;Topics</div></a>
+    <a href="/"><div class="menu-header-big"><i class="fa fa-home" aria-hidden="true"></i>Home</div></a>
+    <a href="/agdi/threads.php"><div class="menu-header-big"><i class="fa fa-list" aria-hidden="true"></i>Topics</div></a>
     <a href="<?php
                 if (isset($_SESSION['id'])) { echo '/profile.php?id='.$_SESSION['id']; } else { echo '/login.php?m=3'; }
-             ?>"><div class="menu-header-big"><i class="fas fa-user" aria-hidden="true"></i>&emsp;Profile</div></a>
+             ?>"><div class="menu-header-big"><i class="fas fa-user" aria-hidden="true"></i>Profile</div></a>
     <?php
        if (!isset($_SESSION['id'])) {
-        echo '<a href="/login.php"><div id="hidden-menu-1" class="menu-header-big"><i class="fas fa-sign-in-alt"></i>&emsp;Login</div></a>
-        <a href="/login.php"><div id="hidden-menu-2" class="menu-header-big"><i class="fas fa-user-tie"></i>&emsp;Register</div></a>'; } ?>
+        echo '<a href="/login.php"><div id="hidden-menu-1" class="menu-header-big"><i class="fas fa-sign-in-alt"></i>Login</div></a>
+        <a href="/login.php"><div id="hidden-menu-2" class="menu-header-big"><i class="fas fa-user-tie"></i>Register</div></a>'; } ?>
     <div class="up-menu">
         <div class="menu-header dis"><i class="fab fa-hotjar" aria-hidden="true"></i>&emsp;Hot</div>
         <?php
-        foreach($all_posts as $post) {
-            echo '<a href="/agdi/topic.php?topic='.$post['topicId'].'&fp='.$post['fp'].'&title='.$post['title'].'">
-                    <div class="mini-card"><div class="min-card-header">'.$post['title'].'</div>
-                        <div class="mini-card-text">'.$post['post'].'</div>
+        foreach($all_posts1 as $posts1) {
+            echo '<a href="/agdi/topic.php?topic='.$posts1['topicId'].'&fp='.$posts1['fp'].'&title='.$posts1['title'].'">
+                    <div class="mini-card"><div class="min-card-header">'.$posts1['title'].'</div>
+                        <div class="mini-card-text">'.$posts1['post'].'</div>
                         <div class="footer-left">
-                            <div class="count ags">'.$post['ags'].'</div>
-                            <div class="count dis">'.$post['dis'].'</div>
-                            <div class="count rep">'.$post['reps'].'</div>
+                            <div class="count ags">'.$posts1['ags'].'</div>
+                            <div class="count dis">'.$posts1['dis'].'</div>
+                            <div class="count rep">'.$posts1['reps'].'</div>
                     </div></div></a>';
 
         }?>

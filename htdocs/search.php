@@ -55,8 +55,6 @@
             $all_users = mysqli_fetch_all($user_result, MYSQLI_ASSOC);
             $num_rows = mysqli_num_rows($user_result);
         }
-
-        mysqli_close($con);
     }
 
     $pageTitle = 'Agoti - Search';
@@ -146,4 +144,5 @@
     </div>
 
 <?php
+mysqli_close($con);
 include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');
