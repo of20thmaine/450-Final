@@ -111,7 +111,7 @@
 
     if (isset($_POST['postId'], $_POST['reply'], $_POST['location'], $_POST['fp'], $_POST['topic'])) {
         $postId = filter_var(trim($_POST['postId']), FILTER_SANITIZE_STRING);
-        $reply = filter_var(htmlspecialchars($_POST['reply']), FILTER_SANITIZE_STRING);
+        $reply = nl2br(htmlspecialchars($_POST['reply']));;
         $redirect = filter_var(trim($_POST['location']), FILTER_SANITIZE_STRING);
         $fp = filter_var(trim($_POST['fp']), FILTER_SANITIZE_STRING);
         $topic = filter_var(trim($_POST['topic']), FILTER_SANITIZE_STRING);
