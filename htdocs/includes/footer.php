@@ -1,4 +1,4 @@
 </div>
-<script src="/js/app.js"></script>
+<script src="/js/min.js"></script>
 </body>
 </html>

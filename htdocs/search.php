@@ -1,26 +1,25 @@
 <?php
-    if(!empty($_GET['search'])) {
+    $all_threads = array();
+    $all_posts = array();
+    $all_users = array();
+
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
+
+    if (!empty($_GET['search'])) {
         $keyword = filter_var(trim($_GET['search']), FILTER_SANITIZE_STRING);
 
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
-
-        //thread search
-        $thread_query = "SELECT t.id AS thread_id, t.creationDate AS thread_creation, t.title AS thread_title
-                    FROM agtodi_threads T
-                    WHERE t.title LIKE CONCAT('%', ?, '%')
-                    ORDER BY title 
-    LIMIT 10";
-        $thread_stmt = mysqli_prepare($con, $thread_query);
-        mysqli_stmt_bind_param($thread_stmt, "s", $keyword);
-        mysqli_stmt_execute($thread_stmt);
-        $thread_result = mysqli_stmt_get_result($thread_stmt);
-        if ($thread_result) {
-            $all_threads = mysqli_fetch_all($thread_result, MYSQLI_ASSOC);
-            $num_rows = mysqli_num_rows($thread_result);
+        if ($stmt = $con->prepare('SELECT t.id AS thread_id, t.creationDate AS thread_creation, t.title AS thread_title
+                        FROM agtodi_threads T
+                        WHERE t.title LIKE CONCAT(\'%\', ?, \'%\')
+                        ORDER BY title LIMIT 10')) {
+            $stmt->bind_param('s', $keyword);
+            $stmt->execute();
+            $thread_result = mysqli_stmt_get_result($stmt);
+            if ($thread_result) {
+                $all_threads = mysqli_fetch_all($thread_result, MYSQLI_ASSOC);
+            }
         }
-
-    //post search
-        $post_query = "SELECT p.id AS post_id, p.creationDate AS post_creation, p.post AS post_content, q.id AS topicId, q.firstPostId AS fp,
+        if ($stmt = $con->prepare('SELECT p.id AS post_id, DATE_FORMAT(p.creationDate,\'%m/%d/%Y\') AS post_creation, p.post AS post_content, q.id AS topicId, q.firstPostId AS fp,
 						(SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE postId = p.id) AS ags,
                         (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE postId = p.id) AS dis,
                         (SELECT IFNULL(COUNT(*),0) FROM agtodi_posts WHERE isReply = p.id) AS reps,
@@ -28,36 +27,31 @@
                         b.firstName, b.lastName
                         FROM agtodi_posts p JOIN agtodi_topics q ON q.id = p.topicId JOIN
                         agtodi_users b ON b.id = p.creatorId
-                        WHERE p.post LIKE CONCAT('%', ?, '%') 
-                        ORDER BY p.post LIMIT 10";
-
-        $post_stmt = mysqli_prepare($con, $post_query);
-        mysqli_stmt_bind_param($post_stmt, "s", $keyword);
-        mysqli_stmt_execute($post_stmt);
-        $post_result = mysqli_stmt_get_result($post_stmt);
-        if($post_result) {
+                        WHERE p.post LIKE CONCAT(\'%\', ?, \'%\') 
+                        ORDER BY p.post LIMIT 10')) {
+            $stmt->bind_param('s', $keyword);
+            $stmt->execute();
+            $post_result = mysqli_stmt_get_result($stmt);
+            if ($post_result) {
                 $all_posts = mysqli_fetch_all($post_result, MYSQLI_ASSOC);
-                $num_rows = mysqli_num_rows($post_result);
+            }
         }
-
-        //user search
-        $user_query = "SELECT u.id AS user_id, u.firstName as user_first, u.lastName as user_last
-            FROM agtodi_users u
-            WHERE u.firstName LIKE CONCAT('%', ?, '%')
-            OR u.lastName LIKE CONCAT('%', ?, '%')
-            OR u.email LIKE CONCAT('%', ?, '%') 
-        LIMIT 10";
-        $user_stmt = mysqli_prepare($con, $user_query);
-        mysqli_stmt_bind_param($user_stmt, "sss", $keyword, $keyword, $keyword);
-        mysqli_stmt_execute($user_stmt);
-        $user_result = mysqli_stmt_get_result($user_stmt);
-        if($user_result) {
-            $all_users = mysqli_fetch_all($user_result, MYSQLI_ASSOC);
-            $num_rows = mysqli_num_rows($user_result);
+        if ($stmt = $con->prepare('SELECT u.id AS user_id, u.firstName as user_first, u.lastName as user_last
+                        FROM agtodi_users u
+                        WHERE u.firstName LIKE CONCAT(\'%\', ?, \'%\')
+                        OR u.lastName LIKE CONCAT(\'%\', ?, \'%\')
+                        OR u.email LIKE CONCAT(\'%\', ?, \'%\') 
+                        LIMIT 10')) {
+            $stmt->bind_param('sss', $keyword, $keyword, $keyword);
+            $stmt->execute();
+            $user_result = mysqli_stmt_get_result($stmt);
+            if ($user_result) {
+                $all_users = mysqli_fetch_all($user_result, MYSQLI_ASSOC);
+            }
         }
     }
 
-    $pageTitle = 'Agoti - Search';
+    $pageTitle = 'Agtodi - Search';
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
@@ -144,5 +138,5 @@
     </div>
 
 <?php
-mysqli_close($con);
-include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');
+    mysqli_close($con);
+    include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');

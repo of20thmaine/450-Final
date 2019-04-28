@@ -15,7 +15,7 @@
         }
 
         if ($loggedIn) {
-            if ($stmt = $con->prepare('SELECT a.id, a.creatorId, a.post, a.creationDate, 
+            if ($stmt = $con->prepare('SELECT a.id, a.creatorId, a.post, DATE_FORMAT(a.creationDate,\'%m/%d/%Y\'), 
                   (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE a.id = postId) AS agrees, 
                   (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE a.id = postId) AS disagrees, 
                   a.isReply, b.firstName, b.lastName, b.tier, ((SELECT IFNULL(SUM(isDislike),0) FROM 
@@ -29,7 +29,7 @@
                 $tier = $_SESSION['tier'];
             }
         } else {
-            if ($stmt = $con->prepare('SELECT a.id, a.creatorId, a.post, a.creationDate, 
+            if ($stmt = $con->prepare('SELECT a.id, a.creatorId, a.post, DATE_FORMAT(a.creationDate,\'%m/%d/%Y\'), 
                             (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE a.id = postId) AS agrees, 
                             (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE a.id = postId)
                              AS disagrees, a.isReply, b.firstName, b.lastName, b.tier, 

@@ -3,7 +3,7 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
-    if ($stmt = $con->prepare('SELECT id, creationDate, title FROM agtodi_threads ORDER BY title')) {
+    if ($stmt = $con->prepare('SELECT id, DATE_FORMAT(creationDate,\'%m/%d/%Y\'), title FROM agtodi_threads ORDER BY title')) {
         $stmt->execute();
         $stmt->store_result();
     }

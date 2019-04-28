@@ -12,6 +12,10 @@ body {
 a {
 	text-decoration: none;
 }
+input {
+	border-radius: 0;
+	-webkit-appearance: none;
+}
 /*
 * Top-Navigation Styling:
 */
@@ -378,6 +382,7 @@ a {
 .card-author {
 	font-size: 0.8em;
 	color: #444343;
+	white-space: nowrap;
 }
 
 /* Ad Area */
@@ -785,6 +790,25 @@ a {
 	body {
 		font-size: 85%;
 	}
+	.content {
+		grid-gap: 0;
+	}
+	.tier {
+		padding-left: 8px;
+	}
+	.card {
+		padding: 12px;
+	}
+	.footer-left {
+		font-size: 90%;
+	}
+	.foot-button {
+		padding: 1px 6px 1px 6px;
+		margin: 0 3px 0 3px;
+	}
+	.count {
+		margin: 0 2px 0 0;
+	}
 	.side-bar {
 		font-size: 100%;
 	}
@@ -807,13 +831,14 @@ a {
 		display:block;
 		text-align:right;
 		margin-right:0.5em;
+		padding:4px;
 	}
 	#show-hidden:hover {
 		color:#007aff;
 	}
 	.hidden-sub {
 		display:none;
-		margin-top: 4px;
+		margin-top: 6px;
 		position: fixed;
 		background-color: white;
 		border-bottom: black 1px solid;

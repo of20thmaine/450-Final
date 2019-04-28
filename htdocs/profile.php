@@ -29,7 +29,7 @@
             }
         }
 
-        if ($stmt = $con->prepare('SELECT a.post, a.creationDate, b.id, b.firstPostId,
+        if ($stmt = $con->prepare('SELECT a.post, DATE_FORMAT(a.creationDate,\'%m/%d/%Y\'), b.id, b.firstPostId,
                     (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE postId = a.id) AS ags,
                     (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE postId = a.id) AS dis,
                     (SELECT IFNULL(COUNT(*),0) FROM agtodi_posts WHERE isReply = a.id) AS reps,
@@ -97,4 +97,5 @@
 </div>
 
 <?php
+    mysqli_close($con);
     include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');

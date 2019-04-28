@@ -7,7 +7,7 @@
         $threadId = filter_var(trim($_GET['thread']), FILTER_SANITIZE_STRING);
         $threadTitle = filter_var(trim($_GET['title']), FILTER_SANITIZE_STRING);
 
-        if ($stmt = $con->prepare('SELECT a.id, a.firstPostId, b.post, b.creatorId, b.creationDate, 
+        if ($stmt = $con->prepare('SELECT a.id, a.firstPostId, b.post, b.creatorId, DATE_FORMAT(b.creationDate,\'%m/%d/%Y\'), 
               (SELECT IFNULL(SUM(isLike),0) FROM agtodi_posts JOIN agtodi_interactions ON agtodi_interactions.postId
                = agtodi_posts.id WHERE agtodi_posts.topicId = a.id) AS ags, (SELECT IFNULL(SUM(isDislike),0) FROM
                 agtodi_posts JOIN agtodi_interactions ON agtodi_interactions.postId = agtodi_posts.id WHERE

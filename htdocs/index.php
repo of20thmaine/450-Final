@@ -3,7 +3,7 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
-    if ($stmt = $con->prepare('SELECT p.creationDate, p.post, q.id AS topicId, q.firstPostId AS fp,
+    if ($stmt = $con->prepare('SELECT DATE_FORMAT(p.creationDate,\'%m/%d/%Y\'), p.post, q.id AS topicId, q.firstPostId AS fp,
                         (SELECT IFNULL(SUM(isLike),0) FROM agtodi_posts JOIN agtodi_interactions ON
                          agtodi_interactions.postId = agtodi_posts.id WHERE agtodi_posts.topicId = q.id) AS ags,
                          (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_posts JOIN agtodi_interactions ON
@@ -68,4 +68,5 @@
     </div>
 
 <?php
+    mysqli_close($con);
 	include($_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php');
