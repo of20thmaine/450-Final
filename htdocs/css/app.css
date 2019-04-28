@@ -28,7 +28,7 @@ a {
 	grid-gap: 40px;
 	align-items: center;
 	text-align: center;
-	border-bottom: #000000 1px solid;
+	border-bottom: #5b6574 1px solid;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.23);
 }
 .topnav-left {
@@ -155,7 +155,7 @@ a {
 
 .argument {
 	grid-column: 2;
-	margin-top: 55px;
+	margin-top: 50px;
 }
 
 .right-area {
@@ -409,7 +409,7 @@ a {
 }
 .menu-header-big {
 	margin: 0 0 20px 0;
-	padding: 4px 0 4px 18px;
+	padding: 4px 0 4px 16px;
 	font-size: 1.1em;
 	font-weight: bold;
 	text-align: left;
@@ -420,7 +420,7 @@ a {
 	border-bottom-right-radius: 10px;
 }
 .menu-header-big i {
-	padding-right: 2em;
+	padding-right: 1.6em;
 }
 .menu-header-big:hover {
 	background-color: #00AB84;
@@ -442,6 +442,9 @@ a {
 	text-align: left;
 	width:100%;
 	display:inline-block;
+}
+.menu-header i {
+	padding-right: 1.6em;
 }
 .mini-card {
 	margin: 16px 0 0 0;
@@ -710,18 +713,22 @@ a {
 	}
 	.side-bar {
 		margin:0 0 0 0;
-		padding:0 0 60px 0;
+		padding:0 0 0 0;
 		border-right: black 1px solid;
 		box-shadow: 0 0 0 1000px rgba(0,0,0,.5);
-		position: absolute;
+		position:fixed;
 		z-index: 3;
 		width: 240px;
-		overflow-y: scroll;
-		top: 0;
+		overflow-y:scroll;
+		overflow-x:hidden;
+		top:0;
 		left:0;
-		bottom: 0;
+		bottom:0;
 		height:100%;
 	}
+	.side-bar::-webkit-scrollbar { width: 0 !important }
+	.side-bar { overflow: -moz-scrollbars-none; }
+	.side-bar { -ms-overflow-style: none; }
 	.side-hidden {
 		display: flex;
 		justify-content: space-between;
@@ -731,7 +738,7 @@ a {
 		font-size: 1.8em;
 		font-weight: bold;
 		text-align: left;
-		margin: 0 0 0 24px;
+		margin: 4px 0 0 26px;
 
 	}
 	.logo-t {
@@ -741,7 +748,7 @@ a {
 		padding:0;
 	}
 	.side-hidden i {
-		padding: 4px 8px 0 0;
+		padding: 5px 14px 0 0;
 		font-size: 1.8em;
 		text-align: right;
 	}
@@ -763,6 +770,7 @@ a {
 		width:100%;
 		border-right: 0;
 		border-radius: 0;
+		margin-bottom: 60px;
 	}
 	.argument {
 		grid-column: 2;
@@ -806,7 +814,7 @@ a {
 	.hidden-sub {
 		display:none;
 		margin-top: 4px;
-		position: absolute;
+		position: fixed;
 		background-color: white;
 		border-bottom: black 1px solid;
 		box-shadow: 0 4px 2px -2px rgba(0,0,0,.5);

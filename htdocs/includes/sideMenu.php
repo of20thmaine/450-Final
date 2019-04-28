@@ -35,7 +35,7 @@ $stmt1->close();
                 if (isset($_SESSION['id'])) { echo '/profile.php?id='.$_SESSION['id']; } else { echo '/login.php?m=3'; }
              ?>"><div class="menu-header-big"><i class="fas fa-user" aria-hidden="true"></i>Profile</div></a>
     <div class="up-menu">
-        <div class="menu-header dis"><i class="fab fa-hotjar" aria-hidden="true"></i>&emsp;Hot</div>
+        <div class="menu-header dis"><i class="fab fa-hotjar" aria-hidden="true"></i>Hot</div>
         <?php
         foreach($all_posts1 as $posts1) {
             echo '<a href="/agdi/topic.php?topic='.$posts1['topicId'].'&fp='.$posts1['fp'].'&title='.$posts1['title'].'">
