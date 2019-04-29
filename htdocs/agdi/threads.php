@@ -3,7 +3,7 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
-    if ($stmt = $con->prepare('SELECT id, DATE_FORMAT(creationDate,\'%m/%d/%Y\'), title FROM agtodi_threads ORDER BY title')) {
+    if ($stmt = $con->prepare('SELECT a.id, (SELECT IFNULL(COUNT(id), 0) FROM agtodi_topics WHERE threadId = a.id) AS topics, a.title FROM agtodi_threads a ORDER BY a.title LIMIT 100')) {
         $stmt->execute();
         $stmt->store_result();
     }
@@ -27,16 +27,16 @@
     </div>
     <div class="card-area">
         <?php
-            $stmt->bind_result($id, $creationDate, $title);
+            $stmt->bind_result($id, $reps, $title);
             $toggle = true;
             while ($stmt->fetch()) {
                 if ($toggle) {
-                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card" style="width: 44%; float:left"><p class="card-body">'.$title.'</p>
-                      <div class="card-footer"><div class="footer-right"><p class="card-datetime">'.$creationDate.'</p>
+                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card l-c"><p class="card-body">'.$title.'</p>
+                      <div class="card-footer"><div class="footer-left"><div class="count rep">Threads: '.$reps.'</div>
                       </div></div></div></a>';
                 } else {
-                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card" style="width: 44%; float:right"><p class="card-body">'.$title.'</p>
-                      <div class="card-footer"><div class="footer-right"><p class="card-datetime">'.$creationDate.'</p>
+                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card r-c"><p class="card-body">'.$title.'</p>
+                      <div class="card-footer"><div class="footer-left"><div class="count rep">Threads: '.$reps.'</div>
                       </div></div></div></a>';
                 }
                 $toggle = !$toggle;

@@ -129,7 +129,7 @@
 
 <div class="argument">
     <div class="threads-header">
-        <h2>agdi://<?php echo $topicTitle; ?> <i style="font-size:0.8em;" class="fas fa-chevron-down"></i></h2>
+        <h2>agdi/<?php echo $topicTitle; ?></h2>
     </div>
     <div class="card-area">
         <?php printCard($fp_index, $posts, $nested, $topic, $tier, $fp, $topicTitle, 0); ?>

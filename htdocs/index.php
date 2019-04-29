@@ -18,7 +18,7 @@
         $stmt->store_result();
     }
 
-	$pageTitle = 'Agoti - Home';
+	$pageTitle = 'Agtodi - Home';
 	include($_SERVER['DOCUMENT_ROOT'] . '/includes/header.php');
 ?>
 
