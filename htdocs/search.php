@@ -9,9 +9,10 @@
         $keyword = filter_var(trim($_GET['search']), FILTER_SANITIZE_STRING);
 
         if ($stmt = $con->prepare('SELECT t.id AS thread_id, t.creationDate AS thread_creation, t.title AS thread_title
-                        FROM agtodi_threads T
-                        WHERE t.title LIKE CONCAT(\'%\', ?, \'%\')
-                        ORDER BY title LIMIT 10')) {
+                        FROM agtodi_threads t
+                        WHERE t.title LIKE CONCAT(\'%\', "?", \'%\') 
+                        ORDER BY title
+                        LIMIT 10')) {
             $stmt->bind_param('s', $keyword);
             $stmt->execute();
             $thread_result = mysqli_stmt_get_result($stmt);

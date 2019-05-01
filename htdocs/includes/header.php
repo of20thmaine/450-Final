@@ -7,7 +7,7 @@
 	<title><?php echo $pageTitle; ?></title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/min.css">
 </head>
 <body>
 	<div class="topnav">
