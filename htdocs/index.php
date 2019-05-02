@@ -3,7 +3,7 @@
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
-    if ($stmt = $con->prepare('SELECT DATE_FORMAT(p.creationDate,\'%m/%d/%Y\'), p.post, q.id AS topicId, q.firstPostId AS fp,
+    if ($stmt = $con->prepare('SELECT DATE_FORMAT(p.creationDate,\'%m/%d/%Y\'), LEFT(p.post,200), q.id AS topicId, q.firstPostId AS fp,
                         (SELECT IFNULL(SUM(isLike),0) FROM agtodi_posts JOIN agtodi_interactions ON
                          agtodi_interactions.postId = agtodi_posts.id WHERE agtodi_posts.topicId = q.id) AS ags,
                          (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_posts JOIN agtodi_interactions ON
@@ -45,12 +45,13 @@
                 }
                 echo "<a href=\"/agdi/topic.php?topic=$id&fp=$fpId&title=$title\">
                   <div class=\"card $class\">
+                    <p class=\"thread-c-header\">$title /</p>
                     <p class=\"card-body o-flow-h\">$argument</p>
                     <div class=\"card-footer\">
 					    <div class=\"footer-left\">
-					        <button class=\"foot-button ag-but\">$ags</button>
-					        <button class=\"foot-button di-but\">$dis</button>
-					        <button class=\"foot-button re-but\">$replies</button>
+					        <div class=\"count-c ag-c\">$ags</div>
+					        <div class=\"count-c di-c\">$dis</div>
+					        <div class=\"count-c re-c\">$replies</div>
 					    </div>
 					    <div class=\"footer-right\">
                             <p class=\"card-datetime\">$date</p>
@@ -61,10 +62,6 @@
             }
             ?>
         </div>
-    </div>
-
-    <div class="right-area">
-        <img src="./img/banner-1.png">
     </div>
 
 <?php

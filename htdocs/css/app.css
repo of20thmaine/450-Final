@@ -269,7 +269,7 @@ input {
 .card-footer  {
 	display: grid;
 	width: 100%;
-	margin-top: 0.75em;
+	margin-top: 0.3em;
 	grid-template-columns: auto auto min-content min-content;
 	grid-gap: 0;
 	align-items: center;
@@ -311,13 +311,25 @@ input {
 	border: #007aff 2px solid;
 	color: #007aff;
 }
+.ag-c {
+	color: #007aff;
+	border-bottom: #007aff 2px solid;
+}
 .di-but {
 	border: #ff6200 2px solid;
 	color: #ff6200;
 }
+.di-c {
+	color: #ff6200;
+	border-bottom: #ff6200 2px solid;
+}
 .re-but {
 	border: #00AB84 2px solid;
 	color: #00AB84;
+}
+.re-c {
+	color: #00AB84;
+	border-bottom: #00AB84 2px solid;
 }
 .tr-but {
 	margin-right: 20px;
@@ -369,6 +381,14 @@ input {
 	margin: 0 4px 0 0;
 	padding: 0;
 }
+.count-c {
+	display: inline-block;
+	font-size: 0.9em;
+	font-weight: 700;
+	margin: 0 0.4em 0 0;
+	padding: 0 5px 0 5px;
+}
+
 
 /* Card Text: */
 .card p {
@@ -384,14 +404,22 @@ input {
 	/*color: black;*/
 	color: #2d2a30;
 }
+.thread-c-header {
+	font-size: 1.0em;
+	color: #5b6574;
+	font-weight: bolder;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-bottom: 0.5em;
+}
 .o-flow-h {
 	overflow:hidden;
 	text-overflow:ellipsis;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
-	-webkit-line-clamp:3;
+	-webkit-line-clamp:2;
 	line-height:1.5em;
-	max-height:4.5em;
+	max-height:3.0em;
 }
 .card-datetime {
 	font-size: 0.7em;
@@ -422,6 +450,10 @@ input {
 	text-align: center;
 	color: #5b6574;
 }
+.side-bar::-webkit-scrollbar { width: 0 !important }
+.side-bar { overflow: -moz-scrollbars-none; }
+.side-bar { -ms-overflow-style: none; }
+
 .side-hidden {
 	display:none;
 }

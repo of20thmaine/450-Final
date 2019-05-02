@@ -1,4 +1,7 @@
 <?php
+/*
+ * Provides the connection interface between database server and php interpreter on main server.
+ */
 	$DATABASE_HOST = 'localhost';
 	$DATABASE_USER = 'root';
 	$DATABASE_PASS = '';

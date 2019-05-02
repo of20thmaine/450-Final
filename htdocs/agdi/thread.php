@@ -7,7 +7,7 @@
         $threadId = filter_var(trim($_GET['thread']), FILTER_SANITIZE_STRING);
         $threadTitle = filter_var(trim($_GET['title']), FILTER_SANITIZE_STRING);
 
-        if ($stmt = $con->prepare('SELECT a.id, a.firstPostId, b.post, b.creatorId, DATE_FORMAT(b.creationDate,\'%m/%d/%Y\'), 
+        if ($stmt = $con->prepare('SELECT a.id, a.firstPostId, LEFT(b.post, 200), b.creatorId, DATE_FORMAT(b.creationDate,\'%m/%d/%Y\'), 
               (SELECT IFNULL(SUM(isLike),0) FROM agtodi_posts JOIN agtodi_interactions ON agtodi_interactions.postId
                = agtodi_posts.id WHERE agtodi_posts.topicId = a.id) AS ags, (SELECT IFNULL(SUM(isDislike),0) FROM
                 agtodi_posts JOIN agtodi_interactions ON agtodi_interactions.postId = agtodi_posts.id WHERE
@@ -61,9 +61,9 @@
                     <p class=\"card-body o-flow-h\">$argument</p>
                     <div class=\"card-footer\">
 					    <div class=\"footer-left\">
-					        <button class=\"foot-button ag-but\">$ags</button>
-					        <button class=\"foot-button di-but\">$dis</button>
-					        <button class=\"foot-button re-but\">$replies</button>
+					        <div class=\"count-c ag-c\">$ags</div>
+					        <div class=\"count-c di-c\">$dis</div>
+					        <div class=\"count-c re-c\">$replies</div>
 					    </div>
 					    <div class=\"footer-right\">
                             <p class=\"card-datetime\">$date</p>

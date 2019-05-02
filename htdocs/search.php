@@ -1,4 +1,7 @@
 <?php
+/*
+ * search.php executes 3 separate queries; 1 searches for topics, 2 searches for
+ */
     $all_threads = array();
     $all_posts = array();
     $all_users = array();
@@ -10,7 +13,7 @@
 
         if ($stmt = $con->prepare('SELECT t.id AS thread_id, t.creationDate AS thread_creation, t.title AS thread_title
                         FROM agtodi_threads t
-                        WHERE t.title LIKE CONCAT(\'%\', "?", \'%\') 
+                        WHERE t.title LIKE CONCAT(\'%\', ?, \'%\') 
                         ORDER BY title
                         LIMIT 10')) {
             $stmt->bind_param('s', $keyword);

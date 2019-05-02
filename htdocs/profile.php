@@ -17,7 +17,7 @@
                 $stmt->fetch();
 
                 if (isset($_SESSION['id'])) {
-                    if ($id = $_SESSION['id']) {
+                    if ($id == $_SESSION['id']) {
                         $itsMe = true;
                     }
                 }
