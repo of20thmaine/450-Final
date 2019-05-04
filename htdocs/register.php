@@ -1,4 +1,9 @@
 <?php
+/*
+ * register.php is a user registration script which uses recursive form handling to check for http post requests containing
+ * the user registration data. Displays a form which is posted to this same script and checked for errors, which if found
+ * are printed to the user over the form; otherwise the user is inserted into the database and redirected to login.
+ */
     session_start();
 
     $registerErrors = array();

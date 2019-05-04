@@ -1,8 +1,13 @@
 <?php
+/*
+ * index.php implements the home-screen functionality of the site.
+ * DB is queried for threads ranked by total ags/dis and displayed as cards.
+ */
 	session_start();
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
+    // Query for retrieving posts:
     if ($stmt = $con->prepare('SELECT DATE_FORMAT(p.creationDate,\'%m/%d/%Y\'), LEFT(p.post,200), q.id AS topicId, q.firstPostId AS fp,
                         (SELECT IFNULL(SUM(isLike),0) FROM agtodi_posts JOIN agtodi_interactions ON
                          agtodi_interactions.postId = agtodi_posts.id WHERE agtodi_posts.topicId = q.id) AS ags,
@@ -32,6 +37,7 @@
         </div>
         <div class="card-area">
             <?php
+            // Iterate through all posts retrieved in query and print them.
             $stmt->bind_result($date,$argument, $id, $fpId, $ags, $dis, $replies, $title, $creatorId, $firstName, $lastName, $total);
             while ($stmt->fetch()) {
                 if ($ags > $dis) {

@@ -1,4 +1,7 @@
 <?php
+/*
+ * Allows admins to create new threads using recursive form handling.
+ */
     session_start();
 
     $threadErrors = array();

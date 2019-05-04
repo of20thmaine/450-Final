@@ -1,4 +1,7 @@
 <?php
+/*
+ * Logs out users by destroying their sessions .
+ */
     session_start();
 
     if (isset($_SESSION['id'])) {

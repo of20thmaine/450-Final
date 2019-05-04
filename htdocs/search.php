@@ -1,6 +1,7 @@
 <?php
 /*
- * search.php executes 3 separate queries; 1 searches for topics, 2 searches for
+ * search.php executes 3 separate queries; 1 searches for topics, 2 searches for posts, and 3 searches for users
+ * related to the user input (given in http get 'search').
  */
     $all_threads = array();
     $all_posts = array();
@@ -23,7 +24,8 @@
                 $all_threads = mysqli_fetch_all($thread_result, MYSQLI_ASSOC);
             }
         }
-        if ($stmt = $con->prepare('SELECT p.id AS post_id, DATE_FORMAT(p.creationDate,\'%m/%d/%Y\') AS post_creation, p.post AS post_content, q.id AS topicId, q.firstPostId AS fp,
+        if ($stmt = $con->prepare('SELECT p.id AS post_id, DATE_FORMAT(p.creationDate,\'%m/%d/%Y\') AS
+                        post_creation, p.post AS post_content, q.id AS topicId, q.firstPostId AS fp,
 						(SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE postId = p.id) AS ags,
                         (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE postId = p.id) AS dis,
                         (SELECT IFNULL(COUNT(*),0) FROM agtodi_posts WHERE isReply = p.id) AS reps,

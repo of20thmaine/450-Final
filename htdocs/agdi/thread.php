@@ -1,4 +1,7 @@
 <?php
+/*
+ * thread.php prints all the topics in a threads first post, total agrees/disagrees, and total replies.
+ */
     session_start();
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');

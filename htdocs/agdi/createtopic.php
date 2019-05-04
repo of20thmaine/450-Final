@@ -1,4 +1,7 @@
 <?php
+/*
+ * Allows admins to create agtodi topics, uses recursive form handling.
+ */
     session_start();
 
     function killScript() {
@@ -23,6 +26,7 @@
         $argument = filter_var(htmlspecialchars($_POST['argument']), FILTER_SANITIZE_STRING);
         require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
 
+        // Mysql transaction in php, we want the whole thing to work or none of it.
         $con->begin_transaction();
         $stmt1 = $con->prepare('INSERT INTO agtodi_topics (threadId) VALUES (?)');
         $stmt1->bind_param('s',$threadId);

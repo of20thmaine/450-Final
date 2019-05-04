@@ -1,11 +1,17 @@
 <?php
     session_start();
 
+    /*
+     * Interaction is for logged in users only.
+     */
     if (!isset($_SESSION['id'])) {
         header('Location: /login.php?m=2');
         exit;
     }
 
+    /*
+     * Handles agrees/disagrees.
+     */
     if ((isset($_POST['agree']) || isset($_POST['disagree'])) && isset($_POST['location'])) {
         $agree = false;
         if (isset($_POST['agree'])) {
@@ -56,6 +62,9 @@
         exit;
     }
 
+    /*
+     * Handles troll button clicks.
+     */
     if (isset($_POST['troll'], $_POST['user'], $_POST['location'])) {
         $postId = filter_var(trim($_POST['troll']), FILTER_SANITIZE_STRING);
         $user = filter_var(trim($_POST['user']), FILTER_SANITIZE_STRING);
@@ -86,7 +95,7 @@
                 $stmt->bind_param('ss',$postId, $_SESSION['id']);
                 $stmt->execute();
             }
-
+            // Checks is post troll count is to high.
             if ($timeToLook) {
                 if ($stmt = $con->prepare('SELECT SUM(isTroll) FROM agtodi_interactions WHERE creatorId = ?')) {
                     $stmt->bind_param('s',$user);
@@ -109,6 +118,9 @@
         exit;
     }
 
+    /*
+     * Handles replies to posts.
+     */
     if (isset($_POST['postId'], $_POST['reply'], $_POST['location'], $_POST['fp'], $_POST['topic'])) {
         $postId = filter_var(trim($_POST['postId']), FILTER_SANITIZE_STRING);
         $reply = nl2br(htmlspecialchars($_POST['reply']));;
@@ -121,7 +133,7 @@
         }
 
         require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
-
+        // Insert the new post and redirect.
         if ($stmt = $con->prepare('INSERT INTO agtodi_posts (creatorId, topicId, isReply, post) VALUES (?, ?, ?, ?)')) {
             $stmt->bind_param('ssss',$_SESSION['id'], $topic, $postId, $reply);
             $stmt->execute();

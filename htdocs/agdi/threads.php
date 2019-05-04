@@ -1,4 +1,7 @@
 <?php
+/*
+ * threads.php prints all threads in Agtodi into a two-column display of cards.
+ */
     session_start();
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
@@ -30,12 +33,13 @@
             $stmt->bind_result($id, $reps, $title);
             $toggle = true;
             while ($stmt->fetch()) {
+                // Switches posts between the two columns.
                 if ($toggle) {
-                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card l-c"><p class="card-body">'.$title.'</p>
+                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card l-c"><p class="thread-c-header">'.$title.'</p>
                       <div class="card-footer"><div class="footer-left"><div class="count rep">Threads: '.$reps.'</div>
                       </div></div></div></a>';
                 } else {
-                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card r-c"><p class="card-body">'.$title.'</p>
+                    echo '<a href="thread.php?thread='.$id.'&title='.$title.'"><div class="card r-c"><p class="thread-c-header">'.$title.'</p>
                       <div class="card-footer"><div class="footer-left"><div class="count rep">Threads: '.$reps.'</div>
                       </div></div></div></a>';
                 }

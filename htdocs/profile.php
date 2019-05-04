@@ -1,4 +1,7 @@
 <?php
+/*
+ * profile.php displays user profiles; the name of a user and their most recent posts, given a user id as a http GET parameter.
+ */
     session_start();
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/../config.php');
@@ -7,6 +10,7 @@
         $id = filter_var(trim($_GET['id']), FILTER_SANITIZE_STRING);
         $itsMe = false;
 
+        // Check is user exits, if not page 404's intentionally.
         if ($stmt = $con->prepare('SELECT firstName, lastName, tier FROM agtodi_users WHERE id = ?')) {
             $stmt->bind_param('s', $id);
             $stmt->execute();
@@ -28,7 +32,7 @@
                 die();
             }
         }
-
+        // We know user exists, so we show their 20 most recent posts ordered by creation date.
         if ($stmt = $con->prepare('SELECT a.post, DATE_FORMAT(a.creationDate,\'%m/%d/%Y\'), b.id, b.firstPostId,
                     (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE postId = a.id) AS ags,
                     (SELECT IFNULL(SUM(isDislike),0) FROM agtodi_interactions WHERE postId = a.id) AS dis,
@@ -64,6 +68,7 @@
     </div>
     <div class="card-area">
         <?php
+        // Print the user's most recent  posts.
         $stmt->bind_result($post, $date, $topicId, $fp, $ags, $dis, $reps, $title);
         while ($stmt->fetch()) {
             if ($ags > $dis) {

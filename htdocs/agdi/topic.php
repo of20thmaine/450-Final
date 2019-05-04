@@ -1,4 +1,11 @@
 <?php
+/*
+ * topic.php is the meat and potatoes of Agtodi.
+ * Topic url is a query string with topic-id, firstPostId, and topic title as parameters.
+ * The database is queried for all the posts in the thread ranked by popularity, and the
+ * script determines the order of the nested (reply) posts and insure their proper placement
+ * in the UI.
+ */
     session_start();
     $loggedIn = false;
 
@@ -13,7 +20,7 @@
         if (isset($_SESSION['id'])) {
             $loggedIn = true;
         }
-
+        // Different query for logged in vs not-logged in, logged in includes whether user interacted with the post.
         if ($loggedIn) {
             if ($stmt = $con->prepare('SELECT a.id, a.creatorId, a.post, DATE_FORMAT(a.creationDate,\'%m/%d/%Y\'), 
                   (SELECT IFNULL(SUM(isLike),0) FROM agtodi_interactions WHERE a.id = postId) AS agrees, 
@@ -45,11 +52,13 @@
         }
         $fp_index = 0;
         $nested = array();
+        // Determines which posts are replies.
         for ($i = 0; $i < count($posts); ++$i) {
             if ($posts[$i][0] == $fp) {
                 $fp_index = $i;
             }
             if ($posts[$i][6] != null) {
+                // Reply posts indexes are placed in dictionary with papa post as key.
                 if (array_key_exists($posts[$i][6], $nested)) {
                     $nested[$posts[$i][6]][] = $i;
                 } else {
@@ -59,6 +68,9 @@
         }
     }
 
+/**
+ * Function determines class of a card based on number of agrees and disagrees.
+ */
     function getCardClass($ags, $dis) {
         if ($ags > $dis) {
             return 'agree-card';
@@ -70,7 +82,9 @@
             return 'dispute-card';
         }
     }
-
+/*
+ * Function prints the given card into the ui.
+ */
     function printCard($i, $posts, $nested, $topic, $tier, $fp, $topicTitle, $replyTier) {
         if (isset($nested) && array_key_exists($posts[$i][0], $nested)) {
             $count = count($nested[$posts[$i][0]]);
@@ -140,16 +154,20 @@
                 if ($posts[$i][0] == $fp) {
                     continue;
                 }
+                // Posts keep track of replies in dictionary containing reply indexes.
                 if (array_key_exists($posts[$i][0], $nested) && $posts[$i][6] == null) {
+                    // Top post.
                     printCard($i, $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
                     $tierCount++;
                     echo '<div class="tier">';
+                    // Tier 2 posts.
                     for ($j = 0; $j < count($nested[$posts[$i][0]]); ++$j) {
                         if (array_key_exists($posts[$nested[$posts[$i][0]][$j]][0], $nested)) {
                             printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
                             $tierCount++;
                             echo '<div class="tier">';
                             for ($k = 0; $k < count($nested[$posts[$nested[$posts[$i][0]][$j]][0]]); ++$k) {
+                                // Tier 3 posts. Agtodi only supports 3 levels of nesting.
                                 printCard($nested[$posts[$nested[$posts[$i][0]][$j]][0]][$k], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
                             }
                             echo '</div>';
@@ -158,12 +176,12 @@
                             printCard($nested[$posts[$i][0]][$j], $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
                         }
                     }
-
                     echo '</div>';
                     $tierCount--;
                 } else if ($posts[$i][6] != null) {
                     continue;
                 } else {
+                    // Tier 1 posts.
                     printCard($i, $posts, $nested, $topic, $tier, $fp, $topicTitle, $tierCount);
                 }
             }

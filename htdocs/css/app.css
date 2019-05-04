@@ -269,7 +269,7 @@ input {
 .card-footer  {
 	display: grid;
 	width: 100%;
-	margin-top: 0.3em;
+	margin-top: 0.5em;
 	grid-template-columns: auto auto min-content min-content;
 	grid-gap: 0;
 	align-items: center;
@@ -409,6 +409,7 @@ input {
 	color: #5b6574;
 	font-weight: bolder;
 	overflow: hidden;
+	white-space: nowrap;
 	text-overflow: ellipsis;
 	padding-bottom: 0.5em;
 }
@@ -861,6 +862,9 @@ input {
 		margin: 0 3px 0 3px;
 	}
 	.count {
+		margin: 0 2px 0 0;
+	}
+	.count-c {
 		margin: 0 2px 0 0;
 	}
 	.side-bar {
